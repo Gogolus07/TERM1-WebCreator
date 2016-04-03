@@ -26,7 +26,7 @@ public:
 	~Head();
 
 	std::string toJson();
-	void toString()const;
+	std::string toString()const;
 
 	//Getters & setters
 	std::string getTitle()const;

@@ -35,7 +35,7 @@ class Site
 
         PageWeb* getPage(unsigned int);
         void addPage();
-        void generate();
+        void generate(std::string dossierCible="");
 
         std::string toJson();
         void sauvegarde();

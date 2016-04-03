@@ -37,14 +37,15 @@ void Site::clearProjet()
     }
 }
 
-void Site::generate()
+void Site::generate(string dossierCible)
 {
-	cout << "Projet site web : " << m_nomProjet <<endl;
+	cout << "Creation du projet site web : " << m_nomProjet <<endl;
   for(unsigned int i=0;i<m_projet.size();i++)
 	{
-		cout << "Page numero " << i << "\n\n";
-		m_projet[i].toString();
+		cout << "Creation de la page numero " << i << "\n";
+		m_projet[i].generate(dossierCible);
 	}
+	cout << "Fin de la creation";
 }
 
 string Site::toJson()

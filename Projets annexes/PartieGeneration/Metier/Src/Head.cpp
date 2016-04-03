@@ -68,19 +68,20 @@ void Head::removeLink(unsigned int i)
     }
 }
 
-void Head::toString() const
+string Head::toString() const
 {
-    cout << "<head>\n";
-    cout << "<title>" << m_title << "</title>";
+    string res = "<head>\n";
+    res+="<title>"+m_title+"</title>";
     for(unsigned int i=0;i<m_links.size();i++)
     {
-        cout << "<link href=\"" << m_links[i] <<"\" />\n";
+        res+="<link href=\""+m_links[i]+"\" />\n";
     }
     for(unsigned int i=0;i<m_scripts.size();i++)
     {
-        cout << "<scipt src=\"" << m_scripts[i] << "\" />\n";
+        res+="<scipt src=\""+m_scripts[i]+"\" />\n";
     }
-    cout << "</head>\n";
+    res+="</head>\n";
+    return res;
 }
 
 string Head::toJson()

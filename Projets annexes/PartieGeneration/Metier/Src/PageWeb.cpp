@@ -9,13 +9,25 @@ PageWeb::PageWeb(string nom) : m_nom(nom) {}
 string PageWeb::getNom()const {return m_nom;}
 void PageWeb::setNom(string nom) {m_nom = nom;}
 
-void PageWeb::toString()const
+Html* PageWeb::getRoot() { return &m_root; }
+
+string PageWeb::toString()const
 {
 	cout << "PageWeb : " << m_nom << "\n";
-	m_root.toString();
+	return m_root.toString();
 }
 
-Html* PageWeb::getRoot() { return &m_root; }
+void PageWeb::generate(string dossierCible=""){
+    ofstream file(dossierCible+getNom()+".html", ios::out | ios::trunc);
+	if(file)
+    {
+        file<<toString();
+    }
+    else
+    {
+        cerr<<"Echec de la sauvegarde de la page " <<getNom()<<"\n";
+    }
+}
 
 string PageWeb::toJson()
 {

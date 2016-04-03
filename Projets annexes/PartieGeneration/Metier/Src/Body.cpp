@@ -28,14 +28,15 @@ void Body::removeChild(unsigned int i)
     }
 }
 
-void Body::toString() const
+string Body::toString() const
 {
-    cout << "<body>\n";
+    string res="<body>\n";
     for(unsigned int i=0;i<m_childs.size();i++)
     {
-        m_childs[i].toString();
+        res+=m_childs[i].toString();
     }
-    cout << "</body>\n";
+    res+="</body>\n";
+    return res;
 }
 
 string Body::toJson()

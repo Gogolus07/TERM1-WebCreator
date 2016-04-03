@@ -21,13 +21,18 @@ int main(int argc, char *argv[])
 	body->addChild(e);
 	Element e2("p","C'est le projet");
 	body->addChild(e2);
+	s.addPage();
+	Html* html2 = s.getPage(1)->getRoot();
+	html2->getBody()->addChild(e);
 	s.generate();
 	cout << "\n";
 	cout<<endl<<endl<<s.toJson();
 	cout<<endl<<endl<<s.getPage(0)->toJson();
 	s.sauvegarde();
-    s.charger("Test.json");
-    s.generate();
+
+	Site s2("proj2",15);
+    s2.charger("Test.json");
+    s2.generate();
 
     /*cout<<endl<<endl;
 	Element r("p_perso"); //Je like cette petite guerre des commentaires ou on commente les tests de l'autre

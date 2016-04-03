@@ -60,7 +60,7 @@ class Element
 		virtual void setStyle(std::string, std::string);
 
 		virtual void addElement(Element);
-		virtual void toString()const;
+		virtual std::string toString()const;
 
 		virtual std::string toJson();
 };

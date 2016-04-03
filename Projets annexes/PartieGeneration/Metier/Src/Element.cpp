@@ -67,22 +67,24 @@ void Element::addElement(Element e)
     m_childElements.push_back(e);
 }
 
-void Element::toString() const
+string Element::toString() const
 {
+    string res="";
     if(m_elementName=="textException")
     {
-        cout<<m_content;
+        res+=m_content;
     }
     else {
-        cout << "<" << m_elementName << " id = \"" << m_id << "\">";
-        cout<<m_content;
+        res+="<"+m_elementName+" id = \""+m_id+"\">";
+        res+=m_content;
         for(unsigned int i=0;i<m_childElements.size();i++)
         {
-            cout << "\n\t";
-            m_childElements[i].toString();
+            res+="\n\t";
+            res+=m_childElements[i].toString();
         }
-        cout << "</" << m_elementName << ">\n";
+        res+="</"+m_elementName+">\n";
     }
+    return res;
 }
 
 string Element::toJson()

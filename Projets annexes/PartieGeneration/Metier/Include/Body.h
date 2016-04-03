@@ -29,7 +29,7 @@ public:
     void addChild(Element);
     void removeChild(unsigned int);
 
-    void toString() const;
+    std::string toString() const;
 	std::string toJson();
 private:
     std::vector<Element> m_childs;
