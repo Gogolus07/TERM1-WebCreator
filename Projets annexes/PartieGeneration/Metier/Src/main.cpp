@@ -25,6 +25,8 @@ int main(int argc, char *argv[])
 	Html* html2 = s.getPage(1)->getRoot();
 	html2->getBody()->addChild(e);
 	s.generate();
+	cout << s.getPage(0)->toString();
+	cout << endl << s.getPage(1)->toString();
 	cout << "\n";
 	cout<<endl<<endl<<s.toJson();
 	cout<<endl<<endl<<s.getPage(0)->toJson();

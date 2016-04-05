@@ -20,7 +20,7 @@
   * @class Html
   * Classe héritée d'Element qui contient l'ensemble de la page web
   */
-class Html : public Element
+class Html
 {
 public:
 	Html();
@@ -29,6 +29,7 @@ public:
 	Body* getBody();
 	Head* getHead();
 
+    std::string toString()const;
 	std::string toJson();
 private:
 	Body *m_body;

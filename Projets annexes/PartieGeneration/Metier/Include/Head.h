@@ -18,7 +18,7 @@
   * @class Head
   * Classe  héritée d'Element qui contient l'ensemble des liens css,js, et les métadonnées d'une page web
   */
-class Head : public Element
+class Head
 {
 public:
 	Head();
