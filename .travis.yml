@@ -31,6 +31,7 @@ script:
  - make
  - ./test
  - cd ../Projets\ annexes/PartieGeneration/Metier
+ - make clean
  - make
  - cd Test
  - g++ -o tests test.cpp -lboost_unit_test_framework
