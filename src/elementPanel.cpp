@@ -9,7 +9,7 @@ elementPanel::elementPanel(QWidget *parent) : QWidget(parent)
 
     dirReader(*dirList);
 
-    makeCategory(QDir("C:/Users/Emmanuel/git/build-TERM1-WebCreator-Desktop_Qt_5_2_1_MinGW_32bit-Debug/debug/Modules"));
+    makeCategory(QDir("C:/Users/Lucaschab/git/build-TERM1-WebCreator-Desktop_Qt_5_5_1_MinGW_32bit-Debug/debug/Modules"));
 
     if(!dirList->isEmpty())
     {
@@ -27,12 +27,12 @@ elementPanel::elementPanel(QWidget *parent) : QWidget(parent)
 void elementPanel::dirReader(QList<QFileInfo> &dirList) //recupere la liste des sous dossiers uniquement
 {
     //ouverture du dossier
-    if(QDir("C:/Users/Emmanuel/git/build-TERM1-WebCreator-Desktop_Qt_5_2_1_MinGW_32bit-Debug/debug/Modules").exists())
+    if(QDir("C:/Users/Lucaschab/git/build-TERM1-WebCreator-Desktop_Qt_5_5_1_MinGW_32bit-Debug/debug/Modules").exists())
     {
-        if(QDir("C:/Users/Emmanuel/git/build-TERM1-WebCreator-Desktop_Qt_5_2_1_MinGW_32bit-Debug/debug/Modules").isReadable())
+        if(QDir("C:/Users/Lucaschab/git/build-TERM1-WebCreator-Desktop_Qt_5_5_1_MinGW_32bit-Debug/debug/Modules").isReadable())
         {
             cout<<"JE SUIS PASSE PAR LA"<<endl;
-            dirList = QDir("C:/Users/Emmanuel/git/build-TERM1-WebCreator-Desktop_Qt_5_2_1_MinGW_32bit-Debug/debug/Modules").entryInfoList(QDir::NoFilter,QDir::Name); //pas de filtre, classe par ordre alphabetique
+            dirList = QDir("C:/Users/Lucaschab/git/build-TERM1-WebCreator-Desktop_Qt_5_5_1_MinGW_32bit-Debug/debug/Modules").entryInfoList(QDir::NoFilter,QDir::Name); //pas de filtre, classe par ordre alphabetique
         }
         else
             std::cerr<<"Le dossier n'est pas lisible"<<endl;

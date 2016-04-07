@@ -9,7 +9,7 @@ TARGET = TERM1-WebCreator
 INCLUDEPATH += . src res
 
 # Input
-HEADERS += src/mainwindow.h src/rectangleitem.h src/feuillewidget.h elementPanel.h src/treeitem.h src/treemodel.h
-FORMS += src/mainwindow.ui 
+HEADERS += src/mainwindow.h src/rectangleitem.h src/feuillewidget.h elementPanel.h src/treeitem.h src/treemodel.h src/elementPanel.h
+FORMS += src/mainwindow.ui
 SOURCES += src/main.cpp src/mainwindow.cpp src/rectangleitem.cpp src/feuillewidget.cpp src/elementPanel.cpp src/treeitem.cpp src/treemodel.cpp
 RESOURCES += res/images/images.qrc
