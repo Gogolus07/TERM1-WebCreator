@@ -2,12 +2,12 @@ langage : c++
 compiler: g++
 
 before_install:
- - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
+ - sudo unlink /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/g++
  - g++ --version
  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
  - sudo apt-get update -qq
 
-env: COMPILER_NAME=gcc CXX=g++-6 CC=gcc-5
+env: COMPILER_NAME=gcc CXX=g++-5 CC=gcc-5
 
 install:
  - sudo apt-get install qtbase5-dev qtdeclarative5-dev libqt5webkit5-dev libsqlite3-dev
