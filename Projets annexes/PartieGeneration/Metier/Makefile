@@ -21,7 +21,7 @@ MSQ=@ # Pour masquer les commandes
 MSG=$(MSQ)echo "***"
 
 #Options de compilation
-CFLAGS= -std=gnu++1z -Wall
+CFLAGS= -std=c++0x -Wall
 
 # L'exécutable
 BIN=app
