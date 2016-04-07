@@ -2,6 +2,7 @@
 #include "rectangleitem.h"
 #include "feuillewidget.h"
 #include "treemodel.h"
+#include "elementPanel.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent){
@@ -27,7 +28,7 @@ void MainWindow::setupWidgets(){
     QHBoxLayout *frameLayout = new QHBoxLayout(frame);
 
     scene = new QGraphicsScene(-50, -50, 70, 400);
-    RectangleItem *item1 = new RectangleItem;
+    /*RectangleItem *item1 = new RectangleItem;
     item1->setText("1");
     item1->setPos(-15, 0);
 
@@ -38,18 +39,23 @@ void MainWindow::setupWidgets(){
     scene->addItem(item1);
     scene->addItem(item2);
 
-    /*Partie Gauche*/
+    //Partie Gauche
     view=new QGraphicsView(scene);
     view->setRenderHint(QPainter::Antialiasing);
-    view->setBackgroundBrush(QColor(230, 200, 167));
+    view->setBackgroundBrush(QColor(230, 200, 167));*/
 
-    /*Partie Droite*/
+    //Partie Droite
     //PageWidget *pageW = new PageWidget();
     FeuilleWidget *pageW = new FeuilleWidget();
 
+    elementPanel *panel = new elementPanel();
 
-    frameLayout->addWidget(view);
+    frameLayout->addWidget(panel->getContainer());
+
+
+    //frameLayout->addWidget(view);
     frameLayout->addWidget(pageW);
+
 
     setCentralWidget(frame);
 }
