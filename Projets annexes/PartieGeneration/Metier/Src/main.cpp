@@ -33,8 +33,8 @@ int main(int argc, char *argv[])
 	s.sauvegarde();
 
 	Site s2("proj2",15);
-    s2.charger("Test.json");
-    s2.generate();
+    s2.charger("proj.json");
+    cout << s2.getPage(0)->toString();
 
     /*cout<<endl<<endl;
 	Element r("p_perso"); //Je like cette petite guerre des commentaires ou on commente les tests de l'autre

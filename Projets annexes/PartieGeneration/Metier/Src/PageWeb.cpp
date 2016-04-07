@@ -104,9 +104,9 @@ void PageWeb::charger(string jsonfile)
         {
             m_nom = root["page"].asString();
             Json::Value head = root["content"]["html"]["head"];
-            getRoot()->getHead()->setTitle(head["title"].asString());
-            Json::Value scripts = head["script"];
-            Json::Value links = head["links"];
+            getRoot()->getHead()->setTitle(head[2]["title"].asString());
+            Json::Value scripts = head[0]["script"];
+            Json::Value links = head[1]["links"];
             if(!scripts.empty())
             {
                 for(unsigned int i=0;i<scripts.size();i++)
@@ -124,11 +124,11 @@ void PageWeb::charger(string jsonfile)
             }
 
             Json::Value body = root["content"]["html"]["body"];
-            if(!body["content"].empty())
+            if(!body[0]["content"].empty())
             {
-                for(unsigned int i=0;i<body["contenu"].size();i++)
+                for(unsigned int i=0;i<body[0]["content"].size();i++)
                 {
-                    getRoot()->getBody()->addChild(*recupererElement(body["content"][i]["element"]));
+                    getRoot()->getBody()->addChild(*recupererElement(body[0]["content"][i]["element"]));
                 }
             }
         }
