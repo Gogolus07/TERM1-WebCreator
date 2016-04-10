@@ -18,12 +18,12 @@ int main(int argc, char *argv[])
 	html->getHead()->setTitle("Le projet");
 	Body* body = html->getBody();
 	Element e("p","Coucou");
-	body->addChild(e);
+	body->addElement(e);
 	Element e2("p","C'est le projet");
-	body->addChild(e2);
+	body->addElement(e2);
 	s.addPage();
 	Html* html2 = s.getPage(1)->getRoot();
-	html2->getBody()->addChild(e);
+	html2->getBody()->addElement(e);
 	s.generate();
 	cout << s.getPage(0)->toString();
 	cout << endl << s.getPage(1)->toString();

@@ -128,7 +128,7 @@ void PageWeb::charger(string jsonfile)
             {
                 for(unsigned int i=0;i<body[0]["content"].size();i++)
                 {
-                    getRoot()->getBody()->addChild(*recupererElement(body[0]["content"][i]["element"]));
+                    getRoot()->getBody()->addElement(*recupererElement(body[0]["content"][i]["element"]));
                 }
             }
         }

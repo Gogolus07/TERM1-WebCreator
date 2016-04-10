@@ -27,7 +27,7 @@
   */
 class Element
 {
-	private:
+	protected:
 		std::string m_id; /*!< id de l'élément (pour la gestion du CSS) */
 		std::string m_moduleName; /*!< Nom du module utilisé */
 		std::string m_elementName; /*!< Nom de l'élément (p,h1,h2,etc...) */
