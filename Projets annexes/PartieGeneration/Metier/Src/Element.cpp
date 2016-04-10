@@ -67,6 +67,24 @@ void Element::addElement(Element e)
     m_childElements.push_back(e);
 }
 
+Element* Element::getElement(unsigned int i)
+{
+    return &m_childElements[i];
+}
+
+void Element::removeElement(unsigned int i)
+{
+    if(i<m_childElements.size())
+    {
+        m_childElements.erase(m_childElements.begin()+i);
+    }
+}
+
+unsigned int Element::nbElement()
+{
+    return m_childElements.size();
+}
+
 string Element::toString() const
 {
     string res="";

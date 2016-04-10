@@ -60,6 +60,10 @@ class Element
 		virtual void setStyle(std::string, std::string);
 
 		virtual void addElement(Element);
+		virtual Element* getElement(unsigned int);
+		virtual void removeElement(unsigned int);
+		virtual unsigned int nbElement();
+
 		virtual std::string toString()const;
 
 		virtual std::string toJson();
