@@ -15,7 +15,7 @@
 #include "Element.h"
 
 
- /*
+ /**
   * @class Body
   * Classe héritée d'Element qui contient l'ensemble des éléments de la page ( = <body>...</body>)
   */

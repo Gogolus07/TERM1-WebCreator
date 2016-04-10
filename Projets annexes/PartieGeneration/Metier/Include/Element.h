@@ -21,9 +21,10 @@
 
 
 
- /*
+ /**
   * @class Element
   * Classe composite représentant un élément web (un <p>...</p> par exemple)
+  * Un element peut en construire d'autres, si on veut varier texte et balises on utilisera des fausses balises textException
   */
 class Element
 {
@@ -38,7 +39,16 @@ class Element
 
 	public:
 		Element();
+		/**
+		* Constructeur avec un parametre
+		* @param le type de balise utilisé
+		*/
 		Element(std::string);
+		/**
+		* Constructeur avec deux parametres
+		* @param le type de balise utilisé
+		* @param le contenu texte de la balise
+		*/
 		Element(std::string, std::string);
 		virtual ~Element();
 
@@ -64,8 +74,13 @@ class Element
 		virtual void removeElement(unsigned int);
 		virtual unsigned int nbElement();
 
+		/**
+		* Cree le code html correspondant a l'élément et à ses fils
+		*/
 		virtual std::string toString()const;
-
+        /**
+        * Sauvegarde en format json l'élément et ses fils
+        */
 		virtual std::string toJson();
 };
 

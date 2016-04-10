@@ -17,7 +17,7 @@
 
 static std::map<std::string, int> ids;
 
-/*
+/**
  * @fn generateId
  * @brief Fonction qui génère l'ID d'un élément (pour le CSS)
  * @param string elementName : le nom de l'élément

@@ -16,10 +16,13 @@
 #include <string>
 #include "PageWeb.h"
 
-//Contient un ensemble de pages web
+ /**
+  * @class Site
+  * Classe qui contient un ensemble de pages web
+  */
 class Site
 {
-    private:
+    protected:
         unsigned int m_numberOfPagesMax;
         std::string m_nomProjet;
         std::vector<PageWeb> m_projet;
@@ -28,6 +31,9 @@ class Site
         Site(std::string, int);
 
         void charger(std::string);
+        /**
+        * Supprime le contenu du projet
+        */
         void clearProjet();
 
         std::string getNomProjet()const;
@@ -35,9 +41,19 @@ class Site
 
         PageWeb* getPage(unsigned int);
         void addPage();
+        /**
+        * Crée l'ensemble des pages html du projet
+        * @param le nom du dossier dans lequel on va créer les pages, par défault le dossier actuel
+        */
         void generate(std::string dossierCible="");
 
+        /**
+        * Sauvegarde en format json
+        */
         std::string toJson();
+        /**
+        * Crée un fichier json pour sauvegarder le projet et un fichier json par page web qu'il contient
+        */
         void sauvegarde();
 };
 

@@ -17,10 +17,13 @@
 #include "Html.h"
 #include "json/json.h"
 
-//Contient un HTML
+ /**
+  * @class PageWeb
+  * Classe qui contient un HTML et le nom de la page web
+  */
 class PageWeb
 {
-	private:
+	protected:
 		std::string m_nom;
 		Html m_root;
 	public:
@@ -35,10 +38,23 @@ class PageWeb
 
 		Html* getRoot();
 
+        /**
+        * Cree le code html correspondant à la page web
+        */
 		std::string toString()const;
+		/**
+		* Crée le fichier html correspondants à la page web
+		* @param le dossier dans lequel les pages html vont être créées
+		*/
 		void generate(std::string);
 
+        /**
+        * Sauvegarde en format json
+        */
 		std::string toJson();
+		/**
+		* Crée le fichier json de sauvegarde
+		*/
 		void sauvegarde();
 };
 

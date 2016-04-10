@@ -16,9 +16,9 @@
 #include "Head.h"
 #include "Body.h"
 
- /*
+ /**
   * @class Html
-  * Classe héritée d'Element qui contient l'ensemble de la page web
+  * Classe qui contient l'ensemble de la page web
   */
 class Html
 {
@@ -29,9 +29,15 @@ public:
 	Body* getBody();
 	Head* getHead();
 
+    /**
+	* Cree le code html correspondant à la page web
+	*/
     std::string toString()const;
+    /**
+	* Sauvegarde en format json
+	*/
 	std::string toJson();
-private:
+protected:
 	Body *m_body;
 	Head *m_head;
 
