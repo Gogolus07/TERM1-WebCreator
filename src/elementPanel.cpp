@@ -1,4 +1,8 @@
 #include "elementPanel.h"
+#include "moduleitem.h"
+
+#include <QPushButton>
+#include <QScrollBar>
 
 using namespace std;
 
@@ -9,7 +13,7 @@ elementPanel::elementPanel(QWidget *parent) : QWidget(parent)
 
     dirReader(*dirList);
 
-    makeCategory(QDir("C:/Users/Lucaschab/git/build-TERM1-WebCreator-Desktop_Qt_5_5_1_MinGW_32bit-Debug/debug/Modules"));
+    makeCategory(QDir("/Users/s-setsuna-f/GitHub/TERM1-WebCreator/Modules"));
 
     if(!dirList->isEmpty())
     {
@@ -27,12 +31,12 @@ elementPanel::elementPanel(QWidget *parent) : QWidget(parent)
 void elementPanel::dirReader(QList<QFileInfo> &dirList) //recupere la liste des sous dossiers uniquement
 {
     //ouverture du dossier
-    if(QDir("C:/Users/Lucaschab/git/build-TERM1-WebCreator-Desktop_Qt_5_5_1_MinGW_32bit-Debug/debug/Modules").exists())
+    if(QDir("/Users/s-setsuna-f/GitHub/TERM1-WebCreator/Modules").exists())
     {
-        if(QDir("C:/Users/Lucaschab/git/build-TERM1-WebCreator-Desktop_Qt_5_5_1_MinGW_32bit-Debug/debug/Modules").isReadable())
+        if(QDir("/Users/s-setsuna-f/GitHub/TERM1-WebCreator/Modules").isReadable())
         {
             cout<<"JE SUIS PASSE PAR LA"<<endl;
-            dirList = QDir("C:/Users/Lucaschab/git/build-TERM1-WebCreator-Desktop_Qt_5_5_1_MinGW_32bit-Debug/debug/Modules").entryInfoList(QDir::NoFilter,QDir::Name); //pas de filtre, classe par ordre alphabetique
+            dirList = QDir("/Users/s-setsuna-f/GitHub/TERM1-WebCreator/Modules").entryInfoList(QDir::NoFilter,QDir::Name); //pas de filtre, classe par ordre alphabetique
         }
         else
             std::cerr<<"Le dossier n'est pas lisible"<<endl;
@@ -64,7 +68,12 @@ QVBoxLayout* elementPanel::makeElement(const QFileInfo &img, QString name) //ren
         layout->addWidget(label);
     }
 
-    layout->addWidget(new QLabel(name));
+    //layout->addWidget(new QLabel(name));
+    //QPushButton *b = new QPushButton(name);
+    moduleItem *b = new moduleItem(name);
+
+    layout->addWidget(b);
+    layout->addStretch();//pour enlever les espaces
 
     return layout;
 }
@@ -96,13 +105,17 @@ void elementPanel::makeCategory(QDir dir) //pour le dossier donne, cree un ongle
                     i++;
                     img = &(fileList.at(i));
                 }
-
-                layout->addLayout(makeElement(*img, name));
+                moduleItem *b = new moduleItem(name);
+                b->setStyleSheet("background-color: white;");
+                layout->addWidget(b);
+                //layout->addLayout(makeElement(*img, name));
             }
         }
     }
     else
         layout->addSpacing(30);
+
+    layout->addStretch();//pour enlever les espaces
 
     QWidget *widget = new QWidget();
     widget->setLayout(layout);

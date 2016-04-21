@@ -1,0 +1,23 @@
+{
+	"page" : "Sans titre",
+	"content" : {
+		"html" : {
+			"head" : [
+				{"script" : []},
+				{"links" : []},
+				{"title" : ""}
+			],
+			"body" : [
+				{ "content" : [
+					{ "element" : {
+						"type" : "p",
+						"id" : "p0",
+						"attributes" : [],
+						"style" : [],
+						"texte" : "Coucou",
+						"content" : []
+					}}
+				]}			]
+		}
+	}
+}

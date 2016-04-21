@@ -112,9 +112,6 @@ private:
     //Pour les test en haut a droite
     QListWidget *customerList;
     //QListWidget *paragraphsList;
-
-    //Pour l'arbre en bas a droite
-    QTreeWidget *t;
 };
 
 #endif // MAINWINDOW_H

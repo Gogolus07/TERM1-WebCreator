@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "rectangleitem.h"
 #include "feuillewidget.h"
-#include "treemodel.h"
+#include "pagewidget.h"
 #include "elementPanel.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -45,8 +45,9 @@ void MainWindow::setupWidgets(){
     view->setBackgroundBrush(QColor(230, 200, 167));*/
 
     //Partie Droite
-    //PageWidget *pageW = new PageWidget();
-    FeuilleWidget *pageW = new FeuilleWidget();
+    PageWidget *pageW = new PageWidget();
+
+    //FeuilleWidget *pageW = new FeuilleWidget();
 
     elementPanel *panel = new elementPanel();
 
