@@ -13,8 +13,6 @@ TARGET = TERM1-WebCreator
 # Input
 HEADERS += \
     src/mainwindow.h \
-    src/rectangleitem.h \
-    src/feuillewidget.h \
     src/elementPanel.h \
     src/compositeelementwidget.h \
     src/elementwidget.h \
@@ -34,8 +32,6 @@ HEADERS += \
 SOURCES += \
     src/main.cpp \
     src/mainwindow.cpp \
-    src/rectangleitem.cpp \
-    src/feuillewidget.cpp \
     src/elementPanel.cpp \
     src/compositeelementwidget.cpp \
     src/elementwidget.cpp \

@@ -10,7 +10,7 @@
 #define LABEL_H
 
 #include <QLabel>
-#include "../elementwidget.h"
+#include "../../elementwidget.h"
 
 QT_BEGIN_NAMESPACE
 class QStyleOptionGraphicsItem;
@@ -18,13 +18,46 @@ class QPainter;
 class QWidget;
 QT_END_NAMESPACE
 
-class Label: public QLabel, virtual public ElementWidget
-{
+
+/**
+ * @class Label
+ *
+ * Classe mere qui va contenir un heritage de QLabel dans le but d'afficher
+ * du text et de ElementWidget pour lui donner les faculté du drag and drop
+ * et d'Element.
+ */
+class Label: public QLabel, virtual public ElementWidget{
 
     public:
+        /**
+         *  \brief Constructeur
+         *
+         *  Constructeur par defaut de la classe Label
+         *
+         *  \param parent : automatiquement initialisé a zero.
+         */
         Label(QWidget*parent=0);
-        Label(std::string, QWidget*parent=0);
-        Label(std::string, std::string, QWidget*parent=0);
+
+        /**
+         *  \brief Constructeur
+         *
+         *  Constructeur de la classe Label
+         *
+         *  \param parent : automatiquement initialisé a zero.
+         *  \param moduleName : nom du module utilisé.
+         */
+        Label(std::string moduleName, QWidget*parent=0);
+
+        /**
+         *  \brief Constructeur
+         *
+         *  Constructeur de la classe ElementWidget
+         *
+         *  \param parent : automatiquement initialisé a zero.
+         *  \param moduleName : nom du module utilisé.
+         *  \param content : contenu a integrer dans le module.
+         */
+        Label(std::string moduleName, std::string content, QWidget*parent=0);
         //void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     protected:
@@ -35,7 +68,7 @@ class Label: public QLabel, virtual public ElementWidget
 
         //void mousePressEvent(QGraphicsSceneMouseEvent *event) ;
         //void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) ;
-        void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+        //void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 
 };
 

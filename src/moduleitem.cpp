@@ -6,17 +6,19 @@
 //#include <QWidget>
 #include <QApplication>
 
+/* moduleItem: =================================================== */
 moduleItem::moduleItem(QWidget *parent) : QPushButton(parent)
 {}
 
-moduleItem::moduleItem(QString name, QWidget *parent) : QPushButton(name, parent), name(name)
+/* moduleItem: =================================================== */
+moduleItem::moduleItem(QString name, QWidget *parent) : QPushButton(name, parent), m_name(name)
 {}
 
 /* mousePressEvent: ============================================== */
 void moduleItem::mousePressEvent(QMouseEvent *event){
     setCursor(Qt::ClosedHandCursor);
     if (event->buttons() == Qt::LeftButton)
-        dragStartPosition = event->pos();
+        m_dragStartPosition = event->pos();
 }
 
 /* mouseReleaseEvent: ============================================= */
@@ -40,7 +42,7 @@ void moduleItem::mouseMoveEvent(QMouseEvent *event){
     //ici on va dire que:
     //Si on a  detecté un mouvement du curseur quand il a commencé a etre cliqué.
     //alors on va commencer le drag and drop, sinon on ne fait pas de drag and drop.
-    if ((event->pos() - dragStartPosition).manhattanLength()
+    if ((event->pos() - m_dragStartPosition).manhattanLength()
          < QApplication::startDragDistance())
         return;
 
@@ -51,7 +53,7 @@ void moduleItem::mouseMoveEvent(QMouseEvent *event){
     QMimeData *mime = new QMimeData;
     drag->setMimeData(mime);
     /* debut de ce qui sera dans le drag ===*/
-    mime->setText(name);
+    mime->setText(m_name);
     /* Fin de ce qui sera dans le drag =====*/
     drag->exec();
 

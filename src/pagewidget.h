@@ -1,22 +1,55 @@
+/**
+ * @file pagewidget.h
+ * @brief Classe qui construit le centre de notre logiciel
+ * @author {Sofien BENHARCHACHE, Emmanuel GUIRAUD}
+ * @version 0.1
+ * @date 28/02/2016
+ * Classe qui herite de QGraphicsView pour integrer le tous les Element
+ * de notre construction ainsi que pour mettre en place le drag and drop.
+ */
 #ifndef PAGEWIDGET_H
 #define PAGEWIDGET_H
 
-#include <QWidget>
 #include <QGraphicsView>
-#include <QGraphicsScene>
-#include "rectangleitem.h"
 
 class CompositeElementWidget;
 
+/**
+ * @class PageWidget
+ * Classe du widget centrale du logiel.
+ */
 class PageWidget : public QGraphicsView
 {
     Q_OBJECT
     public:
-        PageWidget(QWidget *parent = 0);
+        /**
+         *  \brief Constructeur
+         *
+         *  Constructeur par defaut de la classe PageWidget
+         *
+         *  \param parent : automatiquement initialisé a zero.
+         */
+        PageWidget(QWidget *parent = nullptr);
     protected:
+        /**
+         *  \brief Methode qui va nous servir a initialiser le drag.
+         *
+         *  \param event : evenement qui va nous dire si on entre en etat de drag.
+         */
         void dragEnterEvent(QDragEnterEvent *event) Q_DECL_OVERRIDE;
-        void dragLeaveEvent(QDragLeaveEvent *event) Q_DECL_OVERRIDE;
+
+        /**
+         *  \brief Methode qui va nous servir a gerer les mouvement d'un widget au centre de notre page.
+         *
+         *  \param event : evenement qui va nous donner la position du curseur.
+         */
         void dragMoveEvent(QDragMoveEvent *event) Q_DECL_OVERRIDE;
+
+        /**
+         *  \brief Methode qui va nous servir a creer un nouvel item (widget) et l'afficher sur notre page centrale.
+         *
+         *  \param event : evenement qui va nous donner la position du curseur ainsi que le type du Widget a instancier.
+         */
         void dropEvent(QDropEvent *event) Q_DECL_OVERRIDE;
 
         //void mousePressEvent  (QMouseEvent *event) Q_DECL_OVERRIDE;
@@ -27,9 +60,9 @@ class PageWidget : public QGraphicsView
         //QList<RectangleItem> pieceRects;
         //QList<QPoint> pieceLocations;
 
-        CompositeElementWidget *compoEltWidget;
-        QGraphicsScene *scene;
-        QGraphicsView *view;
+        CompositeElementWidget  *m_compoEltWidget;   /*!< attribut qui va contenir des ElementWidget */
+        QGraphicsScene          *m_scene;            /*!< attribut qui va contenir tous les widget (ElementWidget) dans le but de les afficher */
+        QGraphicsView           *m_view;             /*!< attribut qui va contenir la view de notre page centrale dans laquel nous allons integrer notre scene (m_scene) */
 };
 
 #endif // PAGEWIDGET_H

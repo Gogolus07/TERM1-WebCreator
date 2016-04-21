@@ -16,31 +16,28 @@
 #include <QWidget>
 #include "elementwidget.h"
 
+/* ElementWidget: =================================================== */
 ElementWidget::ElementWidget(QWidget *parent):
     QWidget(parent),
-    Element()
-{
+    Element(){
     QWidget::setAttribute( Qt::WA_OpaquePaintEvent, true );
     QWidget::setAcceptDrops(true);
     //QWidget::setDragEnabled(true);
-
 }
 
+/* ElementWidget: =================================================== */
 ElementWidget::ElementWidget(std::string moduleName, QWidget *parent):
     QWidget(parent),
-    Element(moduleName)
-{
+    Element(moduleName){
     QWidget::setAttribute( Qt::WA_OpaquePaintEvent, true );
     //QWidget::setDragEnabled(true);
     setAcceptDrops(true);
-
-
 }
 
+/* ElementWidget: =================================================== */
 ElementWidget::ElementWidget(std::string moduleName, std::string content, QWidget *parent):
     QWidget(parent),
-    Element(moduleName, content)
-{
+    Element(moduleName, content){
     QWidget::setAttribute( Qt::WA_OpaquePaintEvent, true );
     //QWidget::setDragEnabled(true);
     setAcceptDrops(true);
@@ -52,6 +49,7 @@ void ElementWidget::mouseReleaseEvent(QMouseEvent *){
     //setStyleSheet("border: 1px solid black;");
 }*/
 
+/* mousePressEvent: =================================================== */
 void ElementWidget::mousePressEvent(QMouseEvent *event){
     std::cout<<"Je suis dans le mouse_press_event "<<std::endl;
 
@@ -68,6 +66,7 @@ void ElementWidget::mousePressEvent(QMouseEvent *event){
 }
 
 
+/* mouseMoveEvent: =================================================== */
 void ElementWidget::mouseMoveEvent(QMouseEvent *event){
     std::cout<<"Je suis dans le (ElementWidget) mouse_move_event "<<std::endl;
 
@@ -78,53 +77,48 @@ void ElementWidget::mouseMoveEvent(QMouseEvent *event){
     //this->move(event->x()-(this->width()/2), event->y()-(this->height()/2));
     //E->QLabel::move(event->pos().x()-(E->width()/2), event->pos().y()-(E->height()/2));
 
-
-
     //On prepare les elements a etre drag and drop.
     QDrag *drag = new QDrag(this);
     QMimeData *mime = new QMimeData;
     drag->setMimeData(mime);
 
-
     /** debut de ce qui sera drag and drop **/
     //Ici on met ce que nous voulons droper.
-    //mime->setColorData(color);
     mime->setText(QString(getId().c_str()));
-
-    //drag->setHotSpot(QPoint(15, 20));
     /** Fin de ce qui sera drag and drop **/
 
     drag->exec();
-
     setCursor(Qt::OpenHandCursor);
 }
 
 
+/* paint: =================================================== */
 void ElementWidget::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
     std::cout<<"Je suis dans le painter "<<std::endl;
-
     //painter->setPen(Qt::NoPen);
-
+    Q_UNUSED(painter);
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
 }
 
-void ElementWidget::leaveEvent(QEvent * event) // Quand la souris quitte le bouton
-{
+/* leaveEvent: =================================================== */
+void ElementWidget::leaveEvent(QEvent * event){ // Quand la souris quitte le bouton
     std::cout<<"Je suis dans le leave_event "<<std::endl;
 
-    //Q_UNUSED event;
+    Q_UNUSED (event);
     setStyleSheet("border: none;");
 }
-void ElementWidget::enterEvent(QEvent * event) // Quand la souris entre dans le bouton
-{
+
+/* enterEvent: =================================================== */
+void ElementWidget::enterEvent(QEvent * event){ // Quand la souris entre dans le bouton
     std::cout<<"Je suis dans le enter_event "<<std::endl;
 
-    //Q_UNUSED event;
+    Q_UNUSED (event);
     setCursor(Qt::OpenHandCursor);
     setStyleSheet("border: 1px solid blue; border-style:dotted; ");
 }
 
-
-
+/* dragEnterEvent: =================================================== */
 void ElementWidget::dragEnterEvent(QDragEnterEvent *event){
     std::cout<<"Je suis dans le drag_enter "<<std::endl;
 
@@ -134,7 +128,7 @@ void ElementWidget::dragEnterEvent(QDragEnterEvent *event){
         event->ignore();
 }
 
-
+/* dragLeaveEvent: =================================================== */
 void ElementWidget::dragLeaveEvent(QDragLeaveEvent *event){
     std::cout<<"Je suis dans le drag_leave "<<std::endl;
 
@@ -147,6 +141,7 @@ void ElementWidget::dragLeaveEvent(QDragLeaveEvent *event){
     event->accept();
 }
 
+/* dragMoveEvent: =================================================== */
 void ElementWidget::dragMoveEvent(QDragMoveEvent *event){
     std::cout<<"Je suis dans le drag_move "<<std::endl;
 
@@ -169,10 +164,11 @@ void ElementWidget::dragMoveEvent(QDragMoveEvent *event){
         //highlightedRect = new RectangleItem();
         event->ignore();
     }
-
     //update(updateRect);
     //update(highlightedRect);
 }
+
+/* dropEvent: =================================================== */
 void ElementWidget::dropEvent(QDropEvent *event){
     std::cout<<"Je suis dans le drag_event "<<std::endl;
     if (event->mimeData()->hasHtml()) {
@@ -219,7 +215,6 @@ void ElementWidget::dropEvent(QDropEvent *event){
    //         scene->addWidget(t);
    //         i+=100;
    //     }
-
 
         event->setDropAction(Qt::MoveAction);
         event->accept();

@@ -1,35 +1,35 @@
-#include "../items/label.h"
+#include "../include/label.h"
 
 #include <QDrag>
 #include <QDragEnterEvent>
 #include <QMimeData>
 #include <QPainter>
 
+/* Label: =================================================== */
 Label::Label(QWidget* parent):
     ElementWidget(parent),
-    QLabel(parent)
-{
+    QLabel(parent){
     parent->setFixedSize(this->QLabel::width(), this->QLabel::height());
 }
 
+/* Label: =================================================== */
 Label::Label(std::string moduleName, QWidget* parent):
     ElementWidget(moduleName, parent),
-    QLabel(moduleName.c_str(), parent)
-{
+    QLabel(moduleName.c_str(), parent){
     parent->setFixedSize(this->QLabel::width(), this->QLabel::height());
 }
 
-
+/* Label: =================================================== */
 Label::Label(std::string moduleName, std::string content, QWidget* parent):
     ElementWidget(moduleName, content, parent),
-    QLabel(content.c_str(), parent)
-{
+    QLabel(content.c_str(), parent){
     QLabel::setContentsMargins(2, 2, 0, 0);
 }
 
+/*
 void Label::mouseMoveEvent(QMouseEvent *event) {
     std::cout<<"Je suis dans le (Label) mouse_move_event "<<std::endl;
-}
+}*/
 
 
 /*void Label::mouseReleaseEvent(QGraphicsSceneMouseEvent *){

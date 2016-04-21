@@ -1,9 +1,20 @@
+//Pour la partie meun:
+#include <QToolBar>
+#include <QAction>
+#include <QMenuBar>
+#include <QStatusBar>
+
+//Pour la partie droite:
+#include <QTreeWidget>
+#include <QDockWidget>
+#include <QListWidget>
+
+//Pour tous nos includes personnel
 #include "mainwindow.h"
-#include "rectangleitem.h"
-#include "feuillewidget.h"
 #include "pagewidget.h"
 #include "elementPanel.h"
 
+/* MainWindow: =================================================== */
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent){
 
@@ -20,14 +31,15 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 
+/* ~MainWindow: =================================================== */
 MainWindow::~MainWindow(){}
 
-
+/* setupWidgets: ================================================== */
 void MainWindow::setupWidgets(){
     QFrame *frame = new QFrame;
     QHBoxLayout *frameLayout = new QHBoxLayout(frame);
 
-    scene = new QGraphicsScene(-50, -50, 70, 400);
+    m_scene = new QGraphicsScene(-50, -50, 70, 400);
     /*RectangleItem *item1 = new RectangleItem;
     item1->setText("1");
     item1->setPos(-15, 0);
@@ -61,193 +73,192 @@ void MainWindow::setupWidgets(){
     setCentralWidget(frame);
 }
 
-
+/* createToolBars: ================================================== */
 void MainWindow::createToolBars(){
-    fileToolBar = addToolBar(tr("Fichier"));
-    fileToolBar->addAction(nouveauAct);
-    fileToolBar->addAction(ouvrirAct);
-    fileToolBar->addAction(sauvegarderAct);
+    m_fileToolBar = addToolBar(tr("Fichier"));
+    m_fileToolBar->addAction(m_nouveauAct);
+    m_fileToolBar->addAction(m_ouvrirAct);
+    m_fileToolBar->addAction(m_sauvegarderAct);
 
 #ifndef QT_NO_CLIPBOARD
-    editToolBar = addToolBar(tr("Edition"));
-    editToolBar->addAction(couperAct);
-    editToolBar->addAction(copierAct);
-    editToolBar->addAction(collerAct);
+    m_editToolBar = addToolBar(tr("Edition"));
+    m_editToolBar->addAction(m_couperAct);
+    m_editToolBar->addAction(m_copierAct);
+    m_editToolBar->addAction(m_collerAct);
 #endif
-    compilationToolBar = addToolBar(tr("Compilation"));
-    compilationToolBar->addAction(executerAct);
-
+    m_compilationToolBar = addToolBar(tr("Compilation"));
+    m_compilationToolBar->addAction(m_executerAct);
 }
 
-
+/* createAction: ================================================== */
 void MainWindow::createAction(){
     /*----------------------------------*/
     /* Partie Fichier de la bar de menu */
-    nouveauAct = new QAction(QIcon(":/new.png"),tr("&Nouveau projet"), this);
-    nouveauAct->setShortcuts(QKeySequence::New);
-    nouveauAct->setStatusTip(tr("Create a new file"));
+    m_nouveauAct = new QAction(QIcon(":/new.png"),tr("&Nouveau projet"), this);
+    m_nouveauAct->setShortcuts(QKeySequence::New);
+    m_nouveauAct->setStatusTip(tr("Create a new file"));
     //connect(newAct, SIGNAL(triggered()), this, SLOT(newFile()));
 
-    nouvellePageAct = new QAction(tr("Nouve&lle pages"), this);
-    nouvellePageAct->setStatusTip(tr("Cree une nouvelle page web"));
+    m_nouvellePageAct = new QAction(tr("Nouve&lle pages"), this);
+    m_nouvellePageAct->setStatusTip(tr("Cree une nouvelle page web"));
     //connect(newAct, SIGNAL(triggered()), this, SLOT(newFile()));
 
-    ouvrirAct = new QAction(QIcon(":/open.png"),tr("&Ouvrir..."), this);
-    ouvrirAct->setShortcuts(QKeySequence::Open);
-    ouvrirAct->setStatusTip(tr("Ouvrir un fichier existant"));
+    m_ouvrirAct = new QAction(QIcon(":/open.png"),tr("&Ouvrir..."), this);
+    m_ouvrirAct->setShortcuts(QKeySequence::Open);
+    m_ouvrirAct->setStatusTip(tr("Ouvrir un fichier existant"));
     //connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
 
-    sauvegarderAct = new QAction(QIcon(":/save.png"), tr("&Sauvegarder"), this);
-    sauvegarderAct->setShortcuts(QKeySequence::Save);
-    sauvegarderAct->setStatusTip(tr("Enregistrer sur le disque"));
+    m_sauvegarderAct = new QAction(QIcon(":/save.png"), tr("&Sauvegarder"), this);
+    m_sauvegarderAct->setShortcuts(QKeySequence::Save);
+    m_sauvegarderAct->setStatusTip(tr("Enregistrer sur le disque"));
     //connect(saveAct, SIGNAL(triggered()), this, SLOT(save()));
 
-    sauvegarder_commeAct = new QAction(tr("Sauvegarder &Comme..."), this);
-    sauvegarder_commeAct->setShortcuts(QKeySequence::SaveAs);
-    sauvegarder_commeAct->setStatusTip(tr("Sauvegarder avec un nouveau nom"));
+    m_sauvegarder_commeAct = new QAction(tr("Sauvegarder &Comme..."), this);
+    m_sauvegarder_commeAct->setShortcuts(QKeySequence::SaveAs);
+    m_sauvegarder_commeAct->setStatusTip(tr("Sauvegarder avec un nouveau nom"));
     //connect(saveAsAct, SIGNAL(triggered()), this, SLOT(saveAs()));
 
-    fermerAct = new QAction(tr("Fermer"), this);
-    fermerAct->setShortcuts(QKeySequence::Quit);
-    fermerAct->setStatusTip(tr("Fermer l'application"));
+    m_fermerAct = new QAction(tr("Fermer"), this);
+    m_fermerAct->setShortcuts(QKeySequence::Quit);
+    m_fermerAct->setStatusTip(tr("Fermer l'application"));
     //connect(exitAct, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
 
     /*---------------------------*/
     /* Bare de menu pour Edition */
-    retablirAct = new QAction(tr("Suivant"), this);
-    retablirAct->setShortcuts(QKeySequence::NextChild);
-    retablirAct->setStatusTip(tr("Move the focus to the next window"));
+    m_retablirAct = new QAction(tr("Suivant"), this);
+    m_retablirAct->setShortcuts(QKeySequence::NextChild);
+    m_retablirAct->setStatusTip(tr("Move the focus to the next window"));
     //connect(nextAct, SIGNAL(triggered()), mdiArea, SLOT(activateNextSubWindow()));
 
-    annulerAct = new QAction(tr("Précédemment"), this);
-    annulerAct->setShortcuts(QKeySequence::PreviousChild);
-    annulerAct->setStatusTip(tr("Move the focus to the previous " "window"));
+    m_annulerAct = new QAction(tr("Précédemment"), this);
+    m_annulerAct->setShortcuts(QKeySequence::PreviousChild);
+    m_annulerAct->setStatusTip(tr("Move the focus to the previous " "window"));
     //connect(previousAct, SIGNAL(triggered()), mdiArea, SLOT(activatePreviousSubWindow()));
 
 #ifndef QT_NO_CLIPBOARD
-    couperAct = new QAction(QIcon(":/cut.png"), tr("&Couper"), this);
-    couperAct->setShortcuts(QKeySequence::Cut);
-    couperAct->setStatusTip(tr("Cut the current selection's contents to the "  "clipboard"));
+    m_couperAct = new QAction(QIcon(":/cut.png"), tr("&Couper"), this);
+    m_couperAct->setShortcuts(QKeySequence::Cut);
+    m_couperAct->setStatusTip(tr("Cut the current selection's contents to the "  "clipboard"));
     //connect(cutAct, SIGNAL(triggered()), this, SLOT(cut()));
 
-    copierAct = new QAction(QIcon(":/copy.png"), tr("Co&pier"), this);
-    copierAct->setShortcuts(QKeySequence::Copy);
-    copierAct->setStatusTip(tr("Copy the current selection's contents to the "  "clipboard"));
+    m_copierAct = new QAction(QIcon(":/copy.png"), tr("Co&pier"), this);
+    m_copierAct->setShortcuts(QKeySequence::Copy);
+    m_copierAct->setStatusTip(tr("Copy the current selection's contents to the "  "clipboard"));
     //connect(copyAct, SIGNAL(triggered()), this, SLOT(copy()));
 
-    collerAct = new QAction(QIcon(":/paste.png"), tr("Co&ller"), this);
-    collerAct->setShortcuts(QKeySequence::Paste);
-    collerAct->setStatusTip(tr("Paste the clipboard's contents into the current "  "selection"));
+    m_collerAct = new QAction(QIcon(":/paste.png"), tr("Co&ller"), this);
+    m_collerAct->setShortcuts(QKeySequence::Paste);
+    m_collerAct->setStatusTip(tr("Paste the clipboard's contents into the current "  "selection"));
     //connect(pasteAct, SIGNAL(triggered()), this, SLOT(paste()));
 #endif
-    tousSelectionnerAct = new QAction(tr("Tous selectionner"), this);
-    tousSelectionnerAct->setStatusTip(tr("Selectionner toute la page"));
+    m_tousSelectionnerAct = new QAction(tr("Tous selectionner"), this);
+    m_tousSelectionnerAct->setStatusTip(tr("Selectionner toute la page"));
     //connect(closeAct, SIGNAL(triggered()), mdiArea, SLOT(closeActiveSubWindow()));
 
-    tousDeselectionnerAct = new QAction(tr("Tous deselectionner"), this);
-    tousDeselectionnerAct->setStatusTip(tr("tous deselectionner toute la page"));
+    m_tousDeselectionnerAct = new QAction(tr("Tous deselectionner"), this);
+    m_tousDeselectionnerAct->setStatusTip(tr("tous deselectionner toute la page"));
     //connect(closeAllAct, SIGNAL(triggered()), mdiArea, SLOT(closeAllSubWindows()));
 
     /*-------------------------------*/
     /* Bare de menu pour Compilation */
-    refaireJsonAct = new QAction(tr("Compiler"), this);
-    refaireJsonAct->setStatusTip(tr("creer le JSON depuis le projet"));
+    m_refaireJsonAct = new QAction(tr("Compiler"), this);
+    m_refaireJsonAct->setStatusTip(tr("creer le JSON depuis le projet"));
     //connect(closeAllAct, SIGNAL(triggered()), mdiArea, SLOT(closeAllSubWindows()));
 
-    relancerProjetAct = new QAction(tr("Relancer projet"), this);
-    relancerProjetAct->setStatusTip(tr("Relancer le projet depuis le JSON"));
+    m_relancerProjetAct = new QAction(tr("Relancer projet"), this);
+    m_relancerProjetAct->setStatusTip(tr("Relancer le projet depuis le JSON"));
     //connect(closeAllAct, SIGNAL(triggered()), mdiArea, SLOT(closeAllSubWindows()));
 
-    executerAct = new QAction(QIcon(":/icon_play.png"), tr("Executer"), this);
-    executerAct ->setStatusTip(tr("Executer le projet et lancer un editeur web"));
+    m_executerAct = new QAction(QIcon(":/icon_play.png"), tr("Executer"), this);
+    m_executerAct ->setStatusTip(tr("Executer le projet et lancer un editeur web"));
     //connect(closeAllAct, SIGNAL(triggered()), mdiArea, SLOT(closeAllSubWindows()));
 
-    executerSansDepAct = new QAction(tr("Executer sans deploiement"), this);
-    executerSansDepAct ->setStatusTip(tr("Executer le projet sans lancer un editeur web"));
+    m_executerSansDepAct = new QAction(tr("Executer sans deploiement"), this);
+    m_executerSansDepAct ->setStatusTip(tr("Executer le projet sans lancer un editeur web"));
     //connect(closeAllAct, SIGNAL(triggered()), mdiArea, SLOT(closeAllSubWindows()));
 
     /*---------------------------*/
     /* Bare de menu pour Fenetre */
-    maximiserAct = new QAction(tr("Maximiser"), this);
-    maximiserAct ->setStatusTip(tr("Maximiser la fenetre"));
+    m_maximiserAct = new QAction(tr("Maximiser"), this);
+    m_maximiserAct ->setStatusTip(tr("Maximiser la fenetre"));
     //connect(closeAllAct, SIGNAL(triggered()), mdiArea, SLOT(closeAllSubWindows()));
 
-    minimiserAct = new QAction(tr("Minimiser"), this);
-    minimiserAct ->setStatusTip(tr("reduire la taille de la fenetre"));
+    m_minimiserAct = new QAction(tr("Minimiser"), this);
+    m_minimiserAct ->setStatusTip(tr("reduire la taille de la fenetre"));
     //connect(closeAllAct, SIGNAL(triggered()), mdiArea, SLOT(closeAllSubWindows()));
 
     /*------------------------*/
     /* Bare de menu pour Aide */
-    rechercherAct = new QAction(tr("Rechercher"), this);
-    rechercherAct ->setStatusTip(tr("rechercher par mot cle"));
+    m_rechercherAct = new QAction(tr("Rechercher"), this);
+    m_rechercherAct ->setStatusTip(tr("rechercher par mot cle"));
     //connect(closeAllAct, SIGNAL(triggered()), mdiArea, SLOT(closeAllSubWindows()));
 
-    documentationAct = new QAction(tr("Documentation"), this);
-    documentationAct ->setStatusTip(tr("Documentation de WebCreator"));
+    m_documentationAct = new QAction(tr("Documentation"), this);
+    m_documentationAct ->setStatusTip(tr("Documentation de WebCreator"));
     //connect(closeAllAct, SIGNAL(triggered()), mdiArea, SLOT(closeAllSubWindows()));
 }
 
-
+/* createMenus: ================================================== */
 void MainWindow::createMenus(){
-    FichierMenu = menuBar()->addMenu(tr("&Fichier"));
-    FichierMenu->addAction(nouveauAct);
-    FichierMenu->addAction(nouvellePageAct);
-    FichierMenu->addAction(ouvrirAct);
-    FichierMenu->addAction(fermerAct);
-    FichierMenu->addSeparator();
-    FichierMenu->addAction(sauvegarderAct);
-    FichierMenu->addAction(sauvegarder_commeAct);
+    m_fichierMenu = menuBar()->addMenu(tr("&Fichier"));
+    m_fichierMenu->addAction(m_nouveauAct);
+    m_fichierMenu->addAction(m_nouvellePageAct);
+    m_fichierMenu->addAction(m_ouvrirAct);
+    m_fichierMenu->addAction(m_fermerAct);
+    m_fichierMenu->addSeparator();
+    m_fichierMenu->addAction(m_sauvegarderAct);
+    m_fichierMenu->addAction(m_sauvegarder_commeAct);
 
-    EditionMenu = menuBar()->addMenu(tr("&Edition"));
-    EditionMenu->addAction(annulerAct);
-    EditionMenu->addAction(retablirAct);
-    EditionMenu->addSeparator();
+    m_editionMenu = menuBar()->addMenu(tr("&Edition"));
+    m_editionMenu->addAction(m_annulerAct);
+    m_editionMenu->addAction(m_retablirAct);
+    m_editionMenu->addSeparator();
     #ifndef QT_NO_CLIPBOARD
-    EditionMenu->addAction(couperAct);
-    EditionMenu->addAction(copierAct);
-    EditionMenu->addAction(collerAct);
+    m_editionMenu->addAction(m_couperAct);
+    m_editionMenu->addAction(m_copierAct);
+    m_editionMenu->addAction(m_collerAct);
     #endif
-    EditionMenu->addSeparator();
-    EditionMenu->addAction(tousSelectionnerAct);
-    EditionMenu->addAction(tousDeselectionnerAct);
+    m_editionMenu->addSeparator();
+    m_editionMenu->addAction(m_tousSelectionnerAct);
+    m_editionMenu->addAction(m_tousDeselectionnerAct);
 
-    CompilationMenu = menuBar()->addMenu(tr("&Compilation"));
-    CompilationMenu->addAction(refaireJsonAct);
-    CompilationMenu->addAction(relancerProjetAct);
-    CompilationMenu->addSeparator();
-    CompilationMenu->addAction(executerAct);
-    CompilationMenu->addAction(executerSansDepAct);
+    m_compilationMenu = menuBar()->addMenu(tr("&Compilation"));
+    m_compilationMenu->addAction(m_refaireJsonAct);
+    m_compilationMenu->addAction(m_relancerProjetAct);
+    m_compilationMenu->addSeparator();
+    m_compilationMenu->addAction(m_executerAct);
+    m_compilationMenu->addAction(m_executerSansDepAct);
 
-    FenetreMenu = menuBar()->addMenu(tr("&Fenêtre"));
-    FenetreMenu->addAction(maximiserAct);
-    FenetreMenu->addAction(minimiserAct);
+    m_fenetreMenu = menuBar()->addMenu(tr("&Fenêtre"));
+    m_fenetreMenu->addAction(m_maximiserAct);
+    m_fenetreMenu->addAction(m_minimiserAct);
 
-    AideMenu = menuBar()->addMenu(tr("&Aide"));
-    AideMenu->addAction(rechercherAct);
-    AideMenu->addAction(documentationAct);
+    m_aideMenu = menuBar()->addMenu(tr("&Aide"));
+    m_aideMenu->addAction(m_rechercherAct);
+    m_aideMenu->addAction(m_documentationAct);
 }
 
-
+/* createStatusBar: ================================================== */
 void MainWindow::createStatusBar()
 {
     statusBar()->showMessage(tr("Ready"));
 }
 
-
+/* createDockWindows: ================================================= */
 void MainWindow::createDockWindows()
 {
     QDockWidget *dock = new QDockWidget(tr("CSS"), this);
     dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-    customerList = new QListWidget(dock);
+    m_customerLists = new QListWidget(dock);
 
-    customerList->addItems(QStringList()
+    m_customerLists->addItems(QStringList()
             << "John Doe, Harmony Enterprises, 12 Lakeside, Ambleton"
             << "Jane Doe, Memorabilia, 23 Watersedge, Beaton"
             << "Tammy Shea, Tiblanka, 38 Sea Views, Carlton"
             << "Tim Sheen, Caraba Gifts, 48 Ocean Way, Deal"
             << "Sol Harvey, Chicos Coffee, 53 New Springs, Eccleston"
             << "Sally Hobart, Tiroli Tea, 67 Long River, Fedula");
-    dock->setWidget(customerList);
+    dock->setWidget(m_customerLists);
 
     addDockWidget(Qt::RightDockWidgetArea, dock);
 
