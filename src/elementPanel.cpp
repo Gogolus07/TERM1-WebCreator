@@ -16,14 +16,8 @@ using namespace std;
 
 elementPanel::elementPanel(QWidget *parent) : QWidget(parent)
 {
-    container = new QToolBox(this, Qt::Widget);
-    fileList = vector<vector<QFileInfo> >();
-
-    createFileList();
-    createModulesList();
-
-    //printFileList();
-    //getFilesList();
+    container = NULL;
+    load();
 }
 
 
@@ -153,7 +147,17 @@ void elementPanel::createModulesList() //pour le dossier donne, cree un onglet e
 
 //-------Accessoires
 
+void elementPanel::load()
+{
+    if(container != NULL)
+        delete container;
 
+    container = new QToolBox(this, Qt::Widget);
+    fileList = vector<vector<QFileInfo> >();
+
+    createFileList();
+    createModulesList();
+}
 
 QWidget* elementPanel::getContainer()
 {
