@@ -7,7 +7,6 @@ CompositeElementWidget::CompositeElementWidget(QWidget *parent):
 
 CompositeElementWidget::CompositeElementWidget(std::string moduleName, QWidget *parent):
     ElementWidget(moduleName, parent){
-
 }
 
 CompositeElementWidget::CompositeElementWidget(std::string moduleName, std::string content, QWidget *parent):

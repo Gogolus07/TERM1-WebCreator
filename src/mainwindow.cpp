@@ -1,8 +1,9 @@
 //Pour la partie meun:
-#include <QToolBar>
 #include <QAction>
 #include <QMenuBar>
+#include <QToolBar>
 #include <QStatusBar>
+#include <QHBoxLayout>
 
 //Pour la partie droite:
 #include <QTreeWidget>
@@ -62,7 +63,7 @@ void MainWindow::setupWidgets(){
     //FeuilleWidget *pageW = new FeuilleWidget();
 
     elementPanel *panel = new elementPanel();
-
+    panel->setFixedHeight(300);
     frameLayout->addWidget(panel->getContainer());
 
 

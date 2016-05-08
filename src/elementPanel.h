@@ -1,13 +1,45 @@
 #ifndef ELEMENTPANEL_H
 #define ELEMENTPANEL_H
 
-#include <iostream>
-#include <QWidget>
-#include <QToolBox>
-#include <QDir>
+class QHBoxLayout;
+class QVBoxLayout;
+class QToolBox;
+class QDir;
+
+
 #include <QFileInfo>
-#include <QVBoxLayout>
-#include <QLabel>
+#include <QWidget>
+
+
+class elementPanel : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit elementPanel(QWidget *parent = 0);
+
+    void createFileList();
+    QList<QFileInfo> listDirectories();
+    QList<QFileInfo> listFiles(std::vector<QFileInfo> &dirVect);
+
+    //QVBoxLayout* makeElement(const QFileInfo &img, QString name);
+    QVBoxLayout* createModule(QFileInfo img, QString name);
+    void createModulesList();
+
+    QWidget* getContainer();
+    std::vector<std::vector<std::string> > getFilesList();
+    void printFileList();
+
+private:
+    QToolBox *container;
+    std::vector<std::vector<QFileInfo> > fileList;
+
+signals:
+
+public slots:
+};
+
+
+/*
 
 class elementPanel : public QWidget
 {
@@ -26,6 +58,6 @@ private:
 signals:
 
 public slots:
-};
+};*/
 
 #endif // ELEMENTPANEL_H
