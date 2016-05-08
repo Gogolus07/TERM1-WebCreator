@@ -29,7 +29,7 @@ PageWidget::PageWidget(QWidget *parent):
 /* dragEnterEvent: ========================================== */
 void PageWidget::dragEnterEvent(QDragEnterEvent *event){
 
-    std::cout<<"Je suis dans le (PageWidget) drag_enter "<<std::endl;
+    //std::cout<<"Je suis dans le (PageWidget) drag_enter "<<std::endl;
 
     if (event->mimeData()->hasText())
         event->accept();
@@ -51,17 +51,17 @@ bool ModulesList(QString val){
 
 /* dragMoveEvent: ============================================ */
 void PageWidget::dragMoveEvent(QDragMoveEvent *event){
-    std::cout<<"Je suis dans le (PageWidget) drag_move_event "<<std::endl;
+    //std::cout<<"Je suis dans le (PageWidget) drag_move_event "<<std::endl;
 
     if (event->mimeData()->hasText()) {
         //Si on a pas un deplacement d'un item
         if(!ModulesList(event->mimeData()->text())){
             //std::cout<<event->mimeData()->text().toStdString()<<" ------------------- "<<std::endl;
+            //ElementWidget *ew = m_compoEltWidget->getElementWidgetById(event->mimeData()->html().toStdString());
             ElementWidget *ew = m_compoEltWidget->getElementWidgetById(event->mimeData()->html().toStdString());
             if(ew != nullptr)
                 ew->move(event->pos().x()-200-(ew->width()/2), event->pos().y()-200-(ew->height()/2));
         }
-
         event->setDropAction(Qt::MoveAction);
         event->accept();
     } else {
@@ -71,7 +71,7 @@ void PageWidget::dragMoveEvent(QDragMoveEvent *event){
 
 /* dropEvent: ================================================ */
 void PageWidget::dropEvent(QDropEvent *event){
-    std::cout<<"Je suis dans le (PageWidget) drop_event "<<std::endl;
+    //std::cout<<"Je suis dans le (PageWidget) drop_event "<<std::endl;
 
     if (event->mimeData()->hasText()) {
 
@@ -85,13 +85,16 @@ void PageWidget::dropEvent(QDropEvent *event){
         }
         if(event->mimeData()->text()=="p"){
             ElementWidget*E=new ElementWidget();
-            Label*T=new Label("text", "text\ntest\nMon site Web de Master Info M1 S2", E);
+            //Label*T=new Label("text", "text\ntest\nMon site Web de Master Info M1 S2", E);
+            Label*T=new Label("text", "text", E);
             (void)T;
-            E->QLabel::move(event->pos().x()-(E->width()/2), event->pos().y()-(E->height()/2));
+            QPoint positionLabel(event->pos().x()-(E->width()/2), event->pos().y()-(E->height()/2));
+            E->QLabel::move(positionLabel);
 
             m_compoEltWidget->addElementWidget(E);
             m_scene->addWidget(E);
         }
+        //
 
         /*Partie Gauche*/
         m_view=new QGraphicsView(m_scene);

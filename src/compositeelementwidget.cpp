@@ -1,5 +1,5 @@
 #include "compositeelementwidget.h"
-
+#include <TypeInfo>
 CompositeElementWidget::CompositeElementWidget(QWidget *parent):
     ElementWidget(parent){
 

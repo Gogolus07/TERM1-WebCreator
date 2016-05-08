@@ -85,6 +85,7 @@ void ElementWidget::mouseMoveEvent(QMouseEvent *event){
     /** debut de ce qui sera drag and drop **/
     //Ici on met ce que nous voulons droper.
     mime->setText(QString(getId().c_str()));
+    std::cout<<"l'id est : "+getId()<<std::endl;
     /** Fin de ce qui sera drag and drop **/
 
     drag->exec();
