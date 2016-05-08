@@ -25,6 +25,7 @@ public:
     QVBoxLayout* createModule(QFileInfo img, QString name);
     void createModulesList();
 
+    void load();
     QWidget* getContainer();
     std::vector<std::vector<std::string> > getFilesList();
     void printFileList();
