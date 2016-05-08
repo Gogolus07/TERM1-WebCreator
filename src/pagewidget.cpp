@@ -89,7 +89,7 @@ void PageWidget::dropEvent(QDropEvent *event){
             Label*T=new Label("text", "text", E);
             (void)T;
             QPoint positionLabel(event->pos().x()-(E->width()/2), event->pos().y()-(E->height()/2));
-            E->QLabel::move(positionLabel);
+            E->move(positionLabel);
 
             m_compoEltWidget->addElementWidget(E);
             m_scene->addWidget(E);

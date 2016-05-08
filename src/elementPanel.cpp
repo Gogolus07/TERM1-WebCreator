@@ -26,7 +26,8 @@ elementPanel::elementPanel(QWidget *parent) : QWidget(parent)
 
 
 
-void elementPanel::createFileList() //cree la liste des dossier et de leur fichiers
+ //cree la liste des dossier et de leur fichiers
+void elementPanel::createFileList()
 {
     QList<QFileInfo> directories;
     QList<QFileInfo> files;
@@ -57,7 +58,7 @@ QList<QFileInfo> elementPanel::listDirectories() //cree la liste des dossiers
     QList<QFileInfo> dirList;
 
     //ouverture du dossier
-    QDir dir = QDir("/Users/s-setsuna-f/GitHub/build-TERM1-WebCreator-Desktop_Qt_5_5_1_clang_64bit-Debug/Modules/");
+    QDir dir = QDir("./Modules/");
 
     if(dir.exists())
     {
@@ -84,7 +85,6 @@ QList<QFileInfo> elementPanel::listFiles(vector<QFileInfo> &dirVect) //cree la l
 
 
 //-------Creation du menu
-
 
 
 QVBoxLayout* elementPanel::createModule(QFileInfo img, QString name) //renvoie la miniature du module
@@ -213,3 +213,10 @@ void elementPanel::printFileList(){
 }
 
 
+
+//------Signaux
+
+void elementPanel::loadModules()
+{
+    load();
+}

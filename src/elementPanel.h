@@ -37,6 +37,7 @@ private:
 signals:
 
 public slots:
+    void loadModules();
 };
 
 

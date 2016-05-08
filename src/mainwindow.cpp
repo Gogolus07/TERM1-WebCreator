@@ -12,8 +12,7 @@
 
 //Pour tous nos includes personnel
 #include "mainwindow.h"
-#include "pagewidget.h"
-#include "elementPanel.h"
+
 
 /* MainWindow: =================================================== */
 MainWindow::MainWindow(QWidget *parent) :
@@ -38,7 +37,7 @@ MainWindow::~MainWindow(){}
 /* setupWidgets: ================================================== */
 void MainWindow::setupWidgets(){
     QFrame *frame = new QFrame;
-    QHBoxLayout *frameLayout = new QHBoxLayout(frame);
+    frameLayout = new QHBoxLayout(frame);
 
     m_scene = new QGraphicsScene(-50, -50, 70, 400);
     /*RectangleItem *item1 = new RectangleItem;
@@ -58,11 +57,11 @@ void MainWindow::setupWidgets(){
     view->setBackgroundBrush(QColor(230, 200, 167));*/
 
     //Partie Droite
-    PageWidget *pageW = new PageWidget();
+    pageW = new PageWidget();
 
     //FeuilleWidget *pageW = new FeuilleWidget();
 
-    elementPanel *panel = new elementPanel();
+    panel = new elementPanel();
     panel->setFixedHeight(300);
     frameLayout->addWidget(panel->getContainer());
 
@@ -123,6 +122,10 @@ void MainWindow::createAction(){
     m_fermerAct->setShortcuts(QKeySequence::Quit);
     m_fermerAct->setStatusTip(tr("Fermer l'application"));
     //connect(exitAct, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
+
+    m_chargerModulesAct = new QAction(tr("Recharger modules"), this);
+    m_chargerModulesAct->setStatusTip(tr("Recharge la liste des modules disponibles"));
+    connect(m_chargerModulesAct, SIGNAL(triggered(bool)), this,SLOT(loadModules()));
 
     /*---------------------------*/
     /* Bare de menu pour Edition */
@@ -206,6 +209,7 @@ void MainWindow::createMenus(){
     m_fichierMenu->addAction(m_nouvellePageAct);
     m_fichierMenu->addAction(m_ouvrirAct);
     m_fichierMenu->addAction(m_fermerAct);
+    m_fichierMenu->addAction(m_chargerModulesAct);
     m_fichierMenu->addSeparator();
     m_fichierMenu->addAction(m_sauvegarderAct);
     m_fichierMenu->addAction(m_sauvegarder_commeAct);
@@ -295,3 +299,14 @@ void MainWindow::createDockWindows()
     dock->setWidget(t);
     addDockWidget(Qt::RightDockWidgetArea, dock);
 }
+
+void MainWindow::loadModules()
+{
+    panel->load();
+    frameLayout->insertWidget(0, panel->getContainer(),0);
+}
+
+
+
+
+

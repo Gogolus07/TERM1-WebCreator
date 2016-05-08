@@ -11,6 +11,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "pagewidget.h"
+#include "elementPanel.h"
 
 QT_BEGIN_NAMESPACE
 class QAction;
@@ -105,6 +107,7 @@ class MainWindow : public QMainWindow
         QAction *m_nouvellePageAct;     /*!< action realisable pour creer une nouvelle page web */
         QAction *m_ouvrirAct;           /*!< action realisable pour ouvrir un nouveau projet  */
         QAction *m_fermerAct;           /*!< action realisable pour fermer le logiciel */
+        QAction *m_chargerModulesAct;   /*!< action realisable pour charger les modules */
         QAction *m_sauvegarderAct;      /*!< action realisable pour sauvegarder le projet */
         QAction *m_sauvegarder_commeAct;/*!< action realisable pour sauvegarder le projet dans un autre nom et/ou dossier */
 
@@ -136,10 +139,17 @@ class MainWindow : public QMainWindow
         QMenu *m_viewMenu;      /*!< attribut qui servira a l'affichage du menu */
         QGraphicsView *m_view;
         QGraphicsScene *m_scene;
+        PageWidget *pageW;
+        elementPanel *panel;
+        QHBoxLayout *frameLayout;
 
         //Pour les test en haut a droite
         QListWidget *m_customerLists;
         //QListWidget *paragraphsList;
+
+public slots:
+        void loadModules();
+
 };
 
 #endif // MAINWINDOW_H
