@@ -54,7 +54,7 @@ class Site
         /**
         * Crée un fichier json pour sauvegarder le projet et un fichier json par page web qu'il contient
         */
-        void sauvegarde();
+        void sauvegarde(std::string);
 };
 
 #endif

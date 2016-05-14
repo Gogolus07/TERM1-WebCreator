@@ -13,6 +13,7 @@
 #include <QMainWindow>
 #include "pagewidget.h"
 #include "elementPanel.h"
+#include "metier/include/Site.h"
 
 QT_BEGIN_NAMESPACE
 class QAction;
@@ -53,7 +54,7 @@ class MainWindow : public QMainWindow
          *
          *  Creation du centre du logiciel
          */
-        void setupWidgets();
+        void setupWidgets(std::string mode);
 
         /**
          *  \brief Le Menu
@@ -141,32 +142,49 @@ class MainWindow : public QMainWindow
         QGraphicsScene *m_scene;
         PageWidget *pageW;
         elementPanel *panel;
+        QFrame *frame;
         QHBoxLayout *frameLayout;
+        Site *site = nullptr;
+        PageWeb *web;
+        QString saveDir = "";
 
         //Pour les test en haut a droite
         QListWidget *m_customerLists;
         //QListWidget *paragraphsList;
 
 public slots:
+        /**
+         * @fn loadModules();
+         * @brief [SLOT]Charge la liste des modules presents
+         */
         void loadModules();
+
+        /**
+         * @fn nouveau();
+         * @brief [SLOT]Cree un nouveau projet
+         */
+        void nouveau();
+
+        /**
+         * @fn ouvrir();
+         * @brief [SLOT]Ouvre le projet selectionne
+         */
+        void ouvrir();
+
+        /**
+         * @fn enregistrer();
+         * @brief [SLOT]Enregistre le projet dans le dernier fichier utilise
+         */
+        void enregistrer();
+
+        /**
+         * @fn enregistrerSous();
+         * @brief [SLOT]Enregistre le projet dans le fichier selectionne
+         */
+        void enregistrerSous();
 
 };
 
 #endif // MAINWINDOW_H
-
-
-
-
-/*private slots:
-    void newFile();
-    void open();
-    void save();
-    void saveAs();
-#ifndef QT_NO_CLIPBOARD
-    void cut();
-    void copy();
-    void paste();
-#endif
-*/
 
 

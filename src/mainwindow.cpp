@@ -4,6 +4,9 @@
 #include <QToolBar>
 #include <QStatusBar>
 #include <QHBoxLayout>
+#include <QInputDialog>
+#include <QFileDialog>
+#include <QMessageBox>
 
 //Pour la partie droite:
 #include <QTreeWidget>
@@ -18,7 +21,8 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent){
 
-    setupWidgets();
+
+    setupWidgets("ouverture");
 
     createAction();
     createMenus();
@@ -35,39 +39,33 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow(){}
 
 /* setupWidgets: ================================================== */
-void MainWindow::setupWidgets(){
-    QFrame *frame = new QFrame;
+void MainWindow::setupWidgets(std::string mode){
+
+    frame = new QFrame;
     frameLayout = new QHBoxLayout(frame);
 
-    m_scene = new QGraphicsScene(-50, -50, 70, 400);
-    /*RectangleItem *item1 = new RectangleItem;
-    item1->setText("1");
-    item1->setPos(-15, 0);
 
-    RectangleItem *item2 = new RectangleItem;
-    item2->setText("2");
-    item2->setPos(-15, 100);
+    if(mode == "initialise")
+    {
+        m_scene = new QGraphicsScene(-50, -50, 70, 400);
 
-    scene->addItem(item1);
-    scene->addItem(item2);
+        //Partie Gauche
+        panel = new elementPanel();
+        panel->setFixedHeight(300);
+        frameLayout->addWidget(panel->getContainer());
 
-    //Partie Gauche
-    view=new QGraphicsView(scene);
-    view->setRenderHint(QPainter::Antialiasing);
-    view->setBackgroundBrush(QColor(230, 200, 167));*/
+        //Partie Droite
+        pageW = new PageWidget();
 
-    //Partie Droite
-    pageW = new PageWidget();
-
-    //FeuilleWidget *pageW = new FeuilleWidget();
-
-    panel = new elementPanel();
-    panel->setFixedHeight(300);
-    frameLayout->addWidget(panel->getContainer());
-
-
-    //frameLayout->addWidget(view);
-    frameLayout->addWidget(pageW);
+        frameLayout->addWidget(pageW);
+    }
+    else
+    {
+        if(mode == "ouverture")
+        {
+            frameLayout->insertSpacing(1, 500);
+        }
+    }
 
 
     setCentralWidget(frame);
@@ -97,7 +95,7 @@ void MainWindow::createAction(){
     m_nouveauAct = new QAction(QIcon(":/new.png"),tr("&Nouveau projet"), this);
     m_nouveauAct->setShortcuts(QKeySequence::New);
     m_nouveauAct->setStatusTip(tr("Create a new file"));
-    //connect(newAct, SIGNAL(triggered()), this, SLOT(newFile()));
+    connect(m_nouveauAct, SIGNAL(triggered()), this, SLOT(nouveau()));
 
     m_nouvellePageAct = new QAction(tr("Nouve&lle pages"), this);
     m_nouvellePageAct->setStatusTip(tr("Cree une nouvelle page web"));
@@ -106,17 +104,17 @@ void MainWindow::createAction(){
     m_ouvrirAct = new QAction(QIcon(":/open.png"),tr("&Ouvrir..."), this);
     m_ouvrirAct->setShortcuts(QKeySequence::Open);
     m_ouvrirAct->setStatusTip(tr("Ouvrir un fichier existant"));
-    //connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
+    connect(m_ouvrirAct, SIGNAL(triggered()), this, SLOT(ouvrir()));
 
     m_sauvegarderAct = new QAction(QIcon(":/save.png"), tr("&Sauvegarder"), this);
     m_sauvegarderAct->setShortcuts(QKeySequence::Save);
     m_sauvegarderAct->setStatusTip(tr("Enregistrer sur le disque"));
-    //connect(saveAct, SIGNAL(triggered()), this, SLOT(save()));
+    connect(m_sauvegarderAct, SIGNAL(triggered()), this, SLOT(enregistrer()));
 
-    m_sauvegarder_commeAct = new QAction(tr("Sauvegarder &Comme..."), this);
+    m_sauvegarder_commeAct = new QAction(tr("Sauvegarder &Sous..."), this);
     m_sauvegarder_commeAct->setShortcuts(QKeySequence::SaveAs);
     m_sauvegarder_commeAct->setStatusTip(tr("Sauvegarder avec un nouveau nom"));
-    //connect(saveAsAct, SIGNAL(triggered()), this, SLOT(saveAs()));
+    connect(m_sauvegarder_commeAct, SIGNAL(triggered()), this, SLOT(enregistrerSous()));
 
     m_fermerAct = new QAction(tr("Fermer"), this);
     m_fermerAct->setShortcuts(QKeySequence::Quit);
@@ -300,13 +298,59 @@ void MainWindow::createDockWindows()
     addDockWidget(Qt::RightDockWidgetArea, dock);
 }
 
+
+//------SLOTS
+
+
 void MainWindow::loadModules()
 {
     panel->load();
     frameLayout->insertWidget(0, panel->getContainer(),0);
 }
 
+void MainWindow::nouveau()
+{
+    bool ok = false;
+    QString projectName = QInputDialog::getText(this,"Nouveau","Entrez le nom du nouveau projet", QLineEdit::Normal, QString(), &ok);
+    site = new Site(projectName.toStdString(), 1);
 
+    if(ok)
+    {
+        setupWidgets("initialise");
 
+        projectName = "Projet: " + projectName;
+        setWindowTitle(projectName);
+    }
+}
+
+void MainWindow::ouvrir()
+{
+    QString fichier = QFileDialog::getOpenFileName(this);
+    site->charger(fichier.toStdString());
+}
+
+void MainWindow::enregistrer()
+{
+    if(site == nullptr)
+        QMessageBox::information(this, "Attention", "Vous devez avoir un projet en cours pour sauvegarder!");
+    else
+    {
+        if(saveDir == "")
+            enregistrerSous();
+        else
+            site->sauvegarde(saveDir.toStdString());
+    }
+}
+
+void MainWindow::enregistrerSous()
+{
+    if(site == nullptr)
+        QMessageBox::information(this, "Attention", "Vous devez avoir un projet en cours pour sauvegarder!");
+    else
+    {
+        saveDir = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "JSON (*.json)");
+        enregistrer();
+    }
+}
 
 

@@ -67,9 +67,9 @@ string Site::toJson()
     return res;
 }
 
-void Site::sauvegarde()
+void Site::sauvegarde(std::string saveDir)
 {
-    ofstream file(getNomProjet()+".json", ios::out | ios::trunc);
+    ofstream file(saveDir, ios::out | ios::trunc);
 	if(file)
     {
         file<<toJson();

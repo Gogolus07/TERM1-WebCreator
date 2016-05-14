@@ -58,7 +58,7 @@ QList<QFileInfo> elementPanel::listDirectories() //cree la liste des dossiers
     QList<QFileInfo> dirList;
 
     //ouverture du dossier
-    QDir dir = QDir("/Users/s-setsuna-f/GitHub/build-TERM1-WebCreator-Desktop_Qt_5_5_1_clang_64bit-Debug/Modules/");
+    QDir dir = QDir("./Modules/");
 
     if(dir.exists())
     {
@@ -180,18 +180,6 @@ vector<vector<string> > elementPanel::getFilesList() //renvoie l'equivalent de f
         directories.push_back(files);
     }
 
-
-    /*cout<<"test vector<vector<string>>"<<endl;
-    for(size_t i = 0; i<directories.size(); i++)
-    {
-        cout<<directories[i][0]<<endl;
-
-        for(size_t j = 1; j<directories[i].size(); j++)
-        {
-           cout<<"     "<<directories[i][j]<<endl;
-        }
-        cout<<endl;
-    }*/
 
     return directories;
 }
