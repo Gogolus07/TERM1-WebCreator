@@ -11,7 +11,7 @@ void PageWeb::setNom(string nom) {m_nom = nom;}
 
 Html* PageWeb::getRoot() { return &m_root; }
 
-string PageWeb::toString()const
+string PageWeb::toString() const
 {
 	cout << "PageWeb : " << m_nom << "\n";
 	return m_root.toString();
@@ -39,7 +39,7 @@ void PageWeb::generate(string dossierCible=""){
     }
 }
 
-string PageWeb::toJson()
+string PageWeb::toJson() const
 {
     string res="{\n";
     res+="\t\"page\" : \""+m_nom+"\",\n";

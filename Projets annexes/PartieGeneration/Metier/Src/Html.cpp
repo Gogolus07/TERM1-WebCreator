@@ -28,7 +28,7 @@ string Html::toString() const
     return res;
 }
 
-string Html::toJson()
+string Html::toJson() const
 {
     string res="\t\t\"html\" : {\n";
     res+=m_head->toJson();

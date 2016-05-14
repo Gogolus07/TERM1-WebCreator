@@ -32,7 +32,7 @@ string Body::toCss() const
     return res;
 }
 
-string Body::toJson()
+string Body::toJson() const
 {
     string res="\t\t\t\"body\" : [\n";
     res+="\t\t\t\t{ \"content\" : [\n";

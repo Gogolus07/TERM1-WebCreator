@@ -85,7 +85,7 @@ class Element
         /**
         * Sauvegarde en format json l'élément et ses fils
         */
-		virtual std::string toJson();
+		virtual std::string toJson()const;
 };
 
 

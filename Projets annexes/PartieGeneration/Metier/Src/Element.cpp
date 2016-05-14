@@ -125,13 +125,13 @@ string Element::toCss() const
     return res;
 }
 
-string Element::toJson()
+string Element::toJson() const
 {
     string res="\t\t\t\t\t{ \"element\" : {\n";
     res+="\t\t\t\t\t\t\"type\" : \""+m_elementName+"\",\n";
     res+="\t\t\t\t\t\t\"id\" : \""+m_id+"\",\n";
     res+="\t\t\t\t\t\t\"attributes\" : [";
-    for(map<string,string>::iterator i=m_attributes.begin();i!=m_attributes.end();i++)
+    for(map<string,string>::const_iterator i=m_attributes.begin();i!=m_attributes.end();i++)
     {
         if(i!=m_attributes.begin())
         {
@@ -141,7 +141,7 @@ string Element::toJson()
     }
     res+="],\n";
     res+="\t\t\t\t\t\t\"style\" : [";
-    for(map<string,string>::iterator i=m_styles.begin();i!=m_styles.end();i++)
+    for(map<string,string>::const_iterator i=m_styles.begin();i!=m_styles.end();i++)
     {
         if(i!=m_styles.begin())
         {

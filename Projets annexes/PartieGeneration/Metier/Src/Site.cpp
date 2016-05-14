@@ -48,7 +48,7 @@ void Site::generate(string dossierCible)
 	cout << "Fin de la creation";
 }
 
-string Site::toJson()
+string Site::toJson() const
 {
     string res ="{\n";
     res+="\t\"nom\" : \""+m_nomProjet+"\",\n";

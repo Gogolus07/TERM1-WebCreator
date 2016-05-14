@@ -50,7 +50,7 @@ class Site
         /**
         * Sauvegarde en format json
         */
-        std::string toJson();
+        std::string toJson()const;
         /**
         * Crée un fichier json pour sauvegarder le projet et un fichier json par page web qu'il contient
         */

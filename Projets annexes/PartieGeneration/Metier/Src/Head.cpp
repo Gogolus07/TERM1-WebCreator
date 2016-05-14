@@ -84,7 +84,7 @@ string Head::toString() const
     return res;
 }
 
-string Head::toJson()
+string Head::toJson() const
 {
     string res="\t\t\t\"head\" : [\n";
     res+="\t\t\t\t{\"script\" : [";

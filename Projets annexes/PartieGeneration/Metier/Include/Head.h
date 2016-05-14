@@ -28,7 +28,7 @@ public:
 	/**
 	* Sauvegarde en format json
 	*/
-	std::string toJson();
+	std::string toJson()const;
 	/**
 	* Cree le code html correspondant au head de la page web
 	*/

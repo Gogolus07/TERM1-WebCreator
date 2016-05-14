@@ -51,7 +51,7 @@ class PageWeb
         /**
         * Sauvegarde en format json
         */
-		std::string toJson();
+		std::string toJson()const;
 		/**
 		* Crée le fichier json de sauvegarde
 		*/

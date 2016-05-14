@@ -36,7 +36,7 @@ public:
     /**
 	* Sauvegarde en format json
 	*/
-	std::string toJson();
+	std::string toJson()const;
 protected:
 	Body *m_body;
 	Head *m_head;

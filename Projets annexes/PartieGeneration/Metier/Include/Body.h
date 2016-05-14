@@ -27,6 +27,6 @@ public:
 
     std::string toString() const;
     std::string toCss() const;
-	std::string toJson();
+	std::string toJson() const;
 };
 #endif
