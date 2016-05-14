@@ -78,6 +78,10 @@ class Element
 		* Cree le code html correspondant a l'élément et à ses fils
 		*/
 		virtual std::string toString()const;
+		/**
+		* Cree le code css correspondant aux styles de l'élément et aux styles de ses fils
+		*/
+		virtual std::string toCss()const;
         /**
         * Sauvegarde en format json l'élément et ses fils
         */

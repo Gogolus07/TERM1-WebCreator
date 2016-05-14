@@ -17,6 +17,17 @@ string Body::toString() const
     return res;
 }
 
+string Body::toCss() const
+{
+    string res="body {\n";
+    for(map<string,string>::const_iterator i=m_styles.begin();i!=m_styles.end();i++)
+    {
+        res+="\t"+i->first+";"+i->second+";\n";
+    }
+    res+="}\n\n";
+    return res;
+}
+
 string Body::toJson()
 {
     string res="\t\t\t\"body\" : [\n";

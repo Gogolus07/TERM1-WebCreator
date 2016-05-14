@@ -93,7 +93,12 @@ string Element::toString() const
         res+=m_content;
     }
     else {
-        res+="<"+m_elementName+" id = \""+m_id+"\">";
+        res+="<"+m_elementName+" id=\""+m_id+"\"";
+        for(map<string,string>::const_iterator i=m_attributes.begin();i!=m_attributes.end();i++)
+        {
+            res+=" "+i->first+"=\""+i->second+"\"";
+        }
+        res+=">";
         res+=m_content;
         for(unsigned int i=0;i<m_childElements.size();i++)
         {
@@ -101,6 +106,21 @@ string Element::toString() const
             res+=m_childElements[i].toString();
         }
         res+="</"+m_elementName+">\n";
+    }
+    return res;
+}
+
+string Element::toCss() const
+{
+    string res="#"+m_id+" {";
+    for(map<string,string>::const_iterator i=m_styles.begin();i!=m_styles.end();i++)
+    {
+        res+="\t"+i->first+";"+i->second+";\n";
+    }
+    res+="}\n\n";
+    for(unsigned int i=0;i<m_childElements.size();i++)
+    {
+        res+=m_childElements[i].toCss();
     }
     return res;
 }

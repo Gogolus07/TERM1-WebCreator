@@ -26,6 +26,7 @@ public:
 	~Body();
 
     std::string toString() const;
+    std::string toCss() const;
 	std::string toJson();
 };
 #endif
