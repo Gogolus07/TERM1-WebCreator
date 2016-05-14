@@ -8,11 +8,13 @@
 
 /* moduleItem: =================================================== */
 moduleItem::moduleItem(QWidget *parent) : QPushButton(parent)
-{}
+{	//setFlat(true);
+}
 
 /* moduleItem: =================================================== */
 moduleItem::moduleItem(QString name, QWidget *parent) : QPushButton(name, parent), m_name(name)
-{}
+{	//setFlat(true);
+}
 
 /* mousePressEvent: ============================================== */
 void moduleItem::mousePressEvent(QMouseEvent *event){

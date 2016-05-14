@@ -1,16 +1,19 @@
 #include "compositeelementwidget.h"
 #include <TypeInfo>
 CompositeElementWidget::CompositeElementWidget(QWidget *parent):
-    ElementWidget(parent){
+    ElementWidget(this, parent)//,
+    {//currentElementWidget(this){
 
 }
 
 CompositeElementWidget::CompositeElementWidget(std::string moduleName, QWidget *parent):
-    ElementWidget(moduleName, parent){
+    ElementWidget(this, moduleName, parent)//,
+    {//currentElementWidget(this){
 }
 
 CompositeElementWidget::CompositeElementWidget(std::string moduleName, std::string content, QWidget *parent):
-    ElementWidget(moduleName, content, parent){
+    ElementWidget(this, moduleName, content, parent)//,
+    {//currentElementWidget(this){
 
 }
 
@@ -23,7 +26,7 @@ ElementWidget* CompositeElementWidget::getElementWidget(unsigned int i){
 }
 
 ElementWidget* CompositeElementWidget::getElementWidgetById(std::string id){
-
+    //std::cout<<"CompositeElementWidget:::l'id est "+id<<std::endl;
     //ElementWidget*elemntwidget=nullptr;
     for(int i=0; i<m_liste_element_widget.length(); i++)
         if(m_liste_element_widget[i]->getId()==id)

@@ -13,6 +13,7 @@
 #include <QGraphicsView>
 
 class CompositeElementWidget;
+class ElementWidget;
 
 /**
  * @class PageWidget
@@ -52,6 +53,10 @@ class PageWidget : public QGraphicsView
          */
         void dropEvent(QDropEvent *event) Q_DECL_OVERRIDE;
 
+
+        void dragLeaveEvent(QDragLeaveEvent *event) Q_DECL_OVERRIDE;
+
+
         //void mousePressEvent  (QMouseEvent *event) Q_DECL_OVERRIDE;
         //void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
         //void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
@@ -59,10 +64,13 @@ class PageWidget : public QGraphicsView
     private:
         //QList<RectangleItem> pieceRects;
         //QList<QPoint> pieceLocations;
+        unsigned int idElementWidget=0;
 
         CompositeElementWidget  *m_compoEltWidget;   /*!< attribut qui va contenir des ElementWidget */
         QGraphicsScene          *m_scene;            /*!< attribut qui va contenir tous les widget (ElementWidget) dans le but de les afficher */
         QGraphicsView           *m_view;             /*!< attribut qui va contenir la view de notre page centrale dans laquel nous allons integrer notre scene (m_scene) */
+
+        ElementWidget *currentElementWidget=nullptr;
 };
 
 #endif // PAGEWIDGET_H

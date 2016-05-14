@@ -58,7 +58,7 @@ QList<QFileInfo> elementPanel::listDirectories() //cree la liste des dossiers
     QList<QFileInfo> dirList;
 
     //ouverture du dossier
-    QDir dir = QDir("./Modules/");
+    QDir dir = QDir("/Users/s-setsuna-f/GitHub/build-TERM1-WebCreator-Desktop_Qt_5_5_1_clang_64bit-Debug/Modules/");
 
     if(dir.exists())
     {

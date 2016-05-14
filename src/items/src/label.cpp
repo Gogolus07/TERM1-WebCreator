@@ -6,25 +6,30 @@
 #include <QPainter>
 
 /* Label: =================================================== */
-Label::Label(QWidget* parent):
-    ElementWidget(parent),
+Label::Label(ElementWidget *currentElementWidget, QWidget* parent):
+    ElementWidget(currentElementWidget, parent),
     QLabel(parent){
     parent->setFixedSize(this->QLabel::width(), this->QLabel::height());
+    //QLabel::adjustSize();
 }
 
 /* Label: =================================================== */
-Label::Label(std::string moduleName, QWidget* parent):
-    ElementWidget(moduleName, parent),
+Label::Label(ElementWidget *currentElementWidget, std::string moduleName, QWidget* parent):
+    ElementWidget(currentElementWidget, moduleName, parent),
     QLabel(moduleName.c_str(), parent){
     parent->setFixedSize(this->QLabel::width(), this->QLabel::height());
+    //QLabel::adjustSize();
 }
 
 /* Label: =================================================== */
-Label::Label(std::string moduleName, std::string content, QWidget* parent):
-    ElementWidget(moduleName, content, parent),
+Label::Label(ElementWidget *currentElementWidget, std::string moduleName, std::string content, QWidget* parent):
+    ElementWidget(currentElementWidget, moduleName, content, parent),
     QLabel(content.c_str(), parent){
     QLabel::setContentsMargins(2, 2, 0, 0);
+   //QLabel::adjustSize();
 }
+
+
 
 /*
 void Label::mouseMoveEvent(QMouseEvent *event) {

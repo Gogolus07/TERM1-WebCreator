@@ -6,8 +6,8 @@
  * @date 13/04/2016
  * Classe qui herite de Element et de QLabel
  */
-#ifndef LABEL_H
-#define LABEL_H
+#ifndef IMAGE_H
+#define IMAGE_H
 
 #include <QLabel>
 #include "../../elementwidget.h"
@@ -20,13 +20,13 @@ QT_END_NAMESPACE
 
 
 /**
- * @class Label
+ * @class Image
  *
  * Classe mere qui va contenir un heritage de QLabel dans le but d'afficher
  * du text et de ElementWidget pour lui donner les faculté du drag and drop
  * et d'Element.
  */
-class Label: public QLabel, virtual public ElementWidget{
+class Image: public QImage, virtual public ElementWidget{
 
     public:
         /**
@@ -36,7 +36,7 @@ class Label: public QLabel, virtual public ElementWidget{
          *
          *  \param parent : automatiquement initialisé a zero.
          */
-        Label(ElementWidget *currentElementWidget, QWidget*parent=0);
+        Image(ElementWidget *currentElementWidget, QWidget*parent=0);
 
         /**
          *  \brief Constructeur
@@ -46,7 +46,7 @@ class Label: public QLabel, virtual public ElementWidget{
          *  \param parent : automatiquement initialisé a zero.
          *  \param moduleName : nom du module utilisé.
          */
-        Label(ElementWidget *currentElementWidget, std::string moduleName, QWidget*parent=0);
+        Image(ElementWidget *currentElementWidget, std::string moduleName, QWidget*parent=0);
 
         /**
          *  \brief Constructeur
@@ -57,7 +57,7 @@ class Label: public QLabel, virtual public ElementWidget{
          *  \param moduleName : nom du module utilisé.
          *  \param content : contenu a integrer dans le module.
          */
-        Label(ElementWidget *currentElementWidget, std::string moduleName, std::string content, QWidget*parent=0);
+        Image(ElementWidget *currentElementWidget, std::string moduleName, std::string content, QWidget*parent=0);
         //void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     protected:
@@ -72,4 +72,4 @@ class Label: public QLabel, virtual public ElementWidget{
 
 };
 
-#endif // LABEL_H
+#endif // IMAGE_H

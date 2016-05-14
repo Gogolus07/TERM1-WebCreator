@@ -26,7 +26,8 @@ HEADERS += \
     src/metier/include/IdHandler.h \
     src/metier/include/Module.h \
     src/metier/include/PageWeb.h \
-    src/metier/include/Site.h
+    src/metier/include/Site.h \
+    src/items/include/image.h
 
 
 SOURCES += \
@@ -38,6 +39,7 @@ SOURCES += \
     src/pagewidget.cpp \
     src/moduleitem.cpp \
     src/items/src/label.cpp \
+    src/items/src/image.cpp \
     src/metier/src/Body.cpp \
     src/metier/src/Element.cpp \
     src/metier/src/Head.cpp \

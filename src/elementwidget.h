@@ -22,6 +22,10 @@ class QGraphicsView;
 class QGraphicsItem;
 QT_END_NAMESPACE
 
+
+#include <QSizeGrip>
+
+
 /**
  * @class PageWidget
  * Classe mere qui va contenir heriter de la classe QWidget pour
@@ -38,7 +42,7 @@ class ElementWidget: public QWidget , public Element
          *
          *  \param parent : automatiquement initialisé a zero.
          */
-        ElementWidget(QWidget *parent = nullptr);
+        ElementWidget(ElementWidget *currentElementWidget, QWidget *parent = nullptr);
 
         /**
          *  \brief Constructeur
@@ -48,7 +52,7 @@ class ElementWidget: public QWidget , public Element
          *  \param parent : automatiquement initialisé a zero.
          *  \param moduleName : nom du module utilisé.
          */
-        ElementWidget(std::string moduleName, QWidget *parent = nullptr);
+        ElementWidget(ElementWidget *currentElementWidget, std::string moduleName, QWidget *parent = nullptr);
 
         /**
          *  \brief Constructeur
@@ -59,7 +63,7 @@ class ElementWidget: public QWidget , public Element
          *  \param moduleName : nom du module utilisé.
          *  \param content : contenu a integrer dans le module.
          */
-        ElementWidget(std::string moduleName, std::string content, QWidget *parent = nullptr);
+        ElementWidget(ElementWidget *currentElementWidget, std::string moduleName, std::string content, QWidget *parent = nullptr);
 
         /**
          *  \brief redefinition de l'apparence du widget
@@ -69,6 +73,11 @@ class ElementWidget: public QWidget , public Element
          *  \param widget : .
          */
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+
+
+        void setCurrentElementWidget(ElementWidget *currentEltWidget);
+        ElementWidget *getCurrentElementWidget();
 
     protected:
         /**
@@ -133,8 +142,16 @@ class ElementWidget: public QWidget , public Element
          */
         void dropEvent(QDropEvent *event)           Q_DECL_OVERRIDE;
 
+
+
+        void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
+
     private:
         QPoint dragStartPosition;   /*!< attribut qui va contenir la position du curseur lors d'un clique */
+
+        ElementWidget *currentElementWidget;
+
+        //QSizeGrip m_SizeGrip;
 };
 
 #endif // ELEMENTWIDGET_H

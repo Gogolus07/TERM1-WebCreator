@@ -25,7 +25,7 @@ public:
     //void move(const QPoint){}
 private:
     QVector<ElementWidget*> m_liste_element_widget;
-
+    //ElementWidget *currentElementWidget;
 };
 
 #endif // COMPOSITEELEMENTWIDGET_H
