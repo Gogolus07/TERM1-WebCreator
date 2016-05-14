@@ -25,6 +25,10 @@ string Body::toCss() const
         res+="\t"+i->first+";"+i->second+";\n";
     }
     res+="}\n\n";
+    for(unsigned int i=0;i<m_childElements.size();i++)
+    {
+        res+=m_childElements[i].toCss();
+    }
     return res;
 }
 

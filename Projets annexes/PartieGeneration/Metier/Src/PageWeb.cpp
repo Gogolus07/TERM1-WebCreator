@@ -18,10 +18,20 @@ string PageWeb::toString()const
 }
 
 void PageWeb::generate(string dossierCible=""){
+    m_root.getHead()->addLink(getNom()+".css");
     ofstream file(dossierCible+getNom()+".html", ios::out | ios::trunc);
 	if(file)
     {
         file<<toString();
+    }
+    else
+    {
+        cerr<<"Echec de la sauvegarde de la page " <<getNom()<<"\n";
+    }
+    ofstream css(dossierCible+getNom()+".css", ios::out | ios::trunc);
+	if(css)
+    {
+        css<<m_root.getBody()->toCss();
     }
     else
     {

@@ -93,7 +93,7 @@ string Head::toJson()
         if(i!=0){
             res+=", ";
         }
-        res+="\""+m_scripts[i];
+        res+="\""+m_scripts[i]+"\"";
     }
     res+="]},\n";
 
@@ -103,7 +103,7 @@ string Head::toJson()
         if(i!=0){
             res+=", ";
         }
-        res+="\""+m_links[i];
+        res+="\""+m_links[i]+"\"";
     }
     res+="]},\n";
     res+="\t\t\t\t{\"title\" : \""+m_title+"\"}\n";
