@@ -1,0 +1,8 @@
+{
+    "nom":"titre",
+    "balise":"h1",
+    "description":"titre pour avoir un texte plus gros",
+    "categorie" : "Objets de base",
+    "style":[["margin","0"],["font-family","Arial"]],
+    "contenu" : []
+}

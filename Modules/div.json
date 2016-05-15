@@ -1,0 +1,8 @@
+{
+    "nom":"division",
+    "balise":"div",
+    "description":"groupe d'objets, ne sera pas visionnable mais sert à appliquer un style commun à tous les éléments contenus",
+    "categorie" : "Objets de base",
+    "style":[["margin","0"],["font-family","Arial"]],
+    "contenu" : []
+}

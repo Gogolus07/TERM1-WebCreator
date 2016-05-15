@@ -1,7 +1,7 @@
 {
-    "nom":"paragraphe",
-    "balise":"p",
-    "description":"paragraphe de base",
+    "nom":"lien",
+    "balise":"a",
+    "description":"un lien vers une autre page",
     "categorie" : "Objets de base",
     "style":[["margin","0"],["font-family","Arial"]],
     "contenu" : []

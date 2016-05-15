@@ -1,0 +1,8 @@
+{
+    "nom":"image",
+    "balise":"img",
+    "description":"une image externe qu'on inclut dans la page",
+    "categorie" : "Objets de base",
+    "style":[["margin","0"],["font-family","Arial"]],
+    "contenu" : []
+}

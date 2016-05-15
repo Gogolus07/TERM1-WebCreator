@@ -1,0 +1,8 @@
+{
+    "nom":"sous titre",
+    "balise":"h3",
+    "description":"sous titre pour avoir un texte un plus gros",
+    "categorie" : "Objets de base",
+    "style":[["margin","0"],["font-family","Arial"]],
+    "contenu" : []
+}
