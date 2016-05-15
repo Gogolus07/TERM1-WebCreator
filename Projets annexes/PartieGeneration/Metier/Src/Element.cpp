@@ -21,6 +21,24 @@ Element::Element(string moduleName, string content) : m_moduleName(moduleName)
 
 Element::~Element() {}
 
+void Element::copieElement(Element &e)
+{
+    m_content=e.getContent();
+    for(map<string,string>::const_iterator i=e.getAttributeBegin();i!=e.getAttributeEnd();i++)
+    {
+        setAttribute(i->first,i->second);
+    }
+    for(map<string,string>::const_iterator i=e.getStyleBegin();i!=e.getStyleEnd();i++)
+    {
+        setStyle(i->first,i->second);
+    }
+    for(unsigned int i=0;i<e.nbElement();i++)
+    {
+        addElement(*(new Element(e.getElement(i)->getModuleName())));
+        getElement(i)->copieElement((*(e.getElement(i))));
+    }
+}
+
 //Getters and Setters
 string Element::getId() const {return m_id;}
 string Element::getElementName() const {return m_elementName;}
@@ -33,6 +51,16 @@ void Element::setId(string id) {this->m_id=id;}
 
 
 //Getters for map elements
+map<string,string>::const_iterator Element::getAttributeBegin()
+{
+    return m_attributes.begin();
+}
+
+map<string,string>::const_iterator Element::getAttributeEnd()
+{
+    return m_attributes.end();
+}
+
 string Element::getAttribute(string attributeName)
 {
     string attribute = m_attributes[attributeName];
@@ -40,6 +68,16 @@ string Element::getAttribute(string attributeName)
         return attribute;
     cout << "This attribute doesn't exist in the attributes map!" <<endl;
     return NULL;
+}
+
+map<string,string>::const_iterator Element::getStyleBegin()
+{
+    return m_styles.begin();
+}
+
+map<string,string>::const_iterator Element::getStyleEnd()
+{
+    return m_styles.end();
 }
 
 string Element::getStyle(string styleName)
@@ -80,7 +118,7 @@ void Element::removeElement(unsigned int i)
     }
 }
 
-unsigned int Element::nbElement()
+unsigned int Element::nbElement() const
 {
     return m_childElements.size();
 }

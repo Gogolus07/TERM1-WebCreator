@@ -52,6 +52,13 @@ class Element
 		Element(std::string, std::string);
 		virtual ~Element();
 
+        //copie
+        /**
+        * Copie l'élément ciblé dans l'instance courante
+        * @param l'élément qu'on veut copier
+        */
+        virtual void copieElement(Element&);
+
 		//Getters for string attributes
 		virtual std::string getId()const;
 		virtual std::string getElementName()const;
@@ -63,7 +70,11 @@ class Element
 		virtual void setContent(std::string);
 
         //Getters for map elements
+        virtual std::map<std::string,std::string>::const_iterator getAttributeBegin();
+        virtual std::map<std::string,std::string>::const_iterator getAttributeEnd();
         virtual std::string getAttribute(std::string);
+        virtual std::map<std::string,std::string>::const_iterator getStyleBegin();
+        virtual std::map<std::string,std::string>::const_iterator getStyleEnd();
         virtual std::string getStyle(std::string);
         //Setters for map elements
 		virtual void setAttribute(std::string, std::string);
@@ -72,7 +83,7 @@ class Element
 		virtual void addElement(Element);
 		virtual Element* getElement(unsigned int);
 		virtual void removeElement(unsigned int);
-		virtual unsigned int nbElement();
+		virtual unsigned int nbElement() const;
 
 		/**
 		* Cree le code html correspondant a l'élément et à ses fils
