@@ -131,7 +131,15 @@ void PageWidget::dropEvent(QDropEvent *event){
     }
 }
 
+void PageWidget::loadElements(Element* e)
+{
+    int nbElem = e->nbElement();
 
+    m_compoEltWidget->addElementWidget(new ElementWidget(e));
+
+    for(int i = 0; i<nbElem; i++)
+        m_compoEltWidget->addElement(*e->getElement(i));
+}
 
 
 

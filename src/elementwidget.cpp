@@ -29,6 +29,17 @@ ElementWidget::ElementWidget(ElementWidget *currentElementWidget, QWidget *paren
 }
 
 /* ElementWidget: =================================================== */
+ElementWidget::ElementWidget(Element* e)
+{
+    copieElement(*e);
+
+    QWidget::setAttribute( Qt::WA_OpaquePaintEvent, true );
+    QWidget::setAcceptDrops(true);
+}
+
+
+
+/* ElementWidget: =================================================== */
 ElementWidget::ElementWidget(ElementWidget *currentElementWidget, std::string moduleName, QWidget *parent):
     currentElementWidget(currentElementWidget),
     QWidget(parent),//m_SizeGrip(parent),

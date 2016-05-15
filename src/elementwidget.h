@@ -46,6 +46,12 @@ class ElementWidget: public QWidget , public Element
 
         /**
          *  \brief Constructeur
+         *  \param Element* e {Element a convertir en ElementWidget}
+         */
+        ElementWidget(Element* e);
+
+        /**
+         *  \brief Constructeur
          *
          *  Constructeur de la classe ElementWidget
          *

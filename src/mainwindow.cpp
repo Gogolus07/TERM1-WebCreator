@@ -327,6 +327,8 @@ void MainWindow::ouvrir()
 {
     QString fichier = QFileDialog::getOpenFileName(this);
     site->charger(fichier.toStdString());
+
+    //pageW->loadElements(site->getPage(0)->getRoot()->getBody());
 }
 
 void MainWindow::enregistrer()

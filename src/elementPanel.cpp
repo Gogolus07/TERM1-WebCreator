@@ -90,6 +90,10 @@ QList<QFileInfo> elementPanel::listFiles(vector<QFileInfo> &dirVect) //cree la l
 QVBoxLayout* elementPanel::createModule(QFileInfo img, QString name) //renvoie la miniature du module
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
+    QString temp = name.left(10);
+    cout<<"TEST text: "+temp.toStdString()<<endl;
+    QLabel *moduleName = new QLabel(temp);
+    moduleName->setMaximumWidth(175);
 
     if(img.exists())
     {
@@ -100,8 +104,7 @@ QVBoxLayout* elementPanel::createModule(QFileInfo img, QString name) //renvoie l
         layout->addWidget(label);
     }
 
-    layout->addWidget(new QLabel(name));
-
+    layout->addWidget(new QLabel(moduleName));
     return layout;
 }
 
@@ -125,7 +128,7 @@ void elementPanel::createModulesList() //pour le dossier donne, cree un onglet e
                     j++;
                     img = fileList[i][j];
                 }
-                moduleItem *b = new moduleItem(name);
+                moduleItem *b = new moduleItem(name.left(30));
                 b->setStyleSheet("background-color: white;");
                 layout->addWidget(b);
                 //layout->addLayout(createModule(img, name));
@@ -154,6 +157,7 @@ void elementPanel::load()
 
     container = new QToolBox(this, Qt::Widget);
     fileList = vector<vector<QFileInfo> >();
+    container->setFixedWidth(200);
 
     createFileList();
     createModulesList();

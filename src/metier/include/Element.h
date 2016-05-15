@@ -28,60 +28,75 @@
   */
 class Element
 {
-	protected:
-		std::string m_id; /*!< id de l'élément (pour la gestion du CSS) */
-		std::string m_moduleName; /*!< Nom du module utilisé */
-		std::string m_elementName; /*!< Nom de l'élément (p,h1,h2,etc...) */
-		std::map<std::string, std::string> m_attributes; /*!< Attributs HTML de l'élément (width,height pour une image par exemple) */
+    protected:
+        std::string m_id; /*!< id de l'élément (pour la gestion du CSS) */
+        std::string m_moduleName; /*!< Nom du module utilisé */
+        std::string m_elementName; /*!< Nom de l'élément (p,h1,h2,etc...) */
+        std::map<std::string, std::string> m_attributes; /*!< Attributs HTML de l'élément (width,height pour une image par exemple) */
         std::map<std::string, std::string> m_styles; /*!< Style CSS propres à l'élément et ses éventuels fils */
-		std::vector<Element> m_childElements; /*!< Eléments fils (le vector peut-être vide) */
-		std::string m_content; /*!< Contenu de l'élément, du texte (utilisé au début du dev) */
+        std::vector<Element> m_childElements; /*!< Eléments fils (le vector peut-être vide) */
+        std::string m_content; /*!< Contenu de l'élément, du texte (utilisé au début du dev) */
 
-	public:
-		Element();
-		/**
-		* Constructeur avec un parametre
-		* @param le type de balise utilisé
-		*/
-		Element(std::string);
-		/**
-		* Constructeur avec deux parametres
-		* @param le type de balise utilisé
-		* @param le contenu texte de la balise
-		*/
-		Element(std::string, std::string);
-		virtual ~Element();
+    public:
+        Element();
+        /**
+        * Constructeur avec un parametre
+        * @param le type de balise utilisé
+        */
+        Element(std::string);
+        /**
+        * Constructeur avec deux parametres
+        * @param le type de balise utilisé
+        * @param le contenu texte de la balise
+        */
+        Element(std::string, std::string);
+        virtual ~Element();
 
-		//Getters for string attributes
-		virtual std::string getId()const;
-		virtual std::string getElementName()const;
-		virtual std::string getContent()const;
-		virtual std::string getModuleName()const;
-		//Setters for string attributes
-		virtual void setId(std::string);
-		virtual void setElementName(std::string);
-		virtual void setContent(std::string);
+        //copie
+        /**
+        * Copie l'élément ciblé dans l'instance courante
+        * @param l'élément qu'on veut copier
+        */
+        virtual void copieElement(Element&);
+
+        //Getters for string attributes
+        virtual std::string getId()const;
+        virtual std::string getElementName()const;
+        virtual std::string getContent()const;
+        virtual std::string getModuleName()const;
+        //Setters for string attributes
+        virtual void setId(std::string);
+        virtual void setElementName(std::string);
+        virtual void setContent(std::string);
 
         //Getters for map elements
+        virtual std::map<std::string,std::string>::const_iterator getAttributeBegin();
+        virtual std::map<std::string,std::string>::const_iterator getAttributeEnd();
         virtual std::string getAttribute(std::string);
+        virtual std::map<std::string,std::string>::const_iterator getStyleBegin();
+        virtual std::map<std::string,std::string>::const_iterator getStyleEnd();
         virtual std::string getStyle(std::string);
         //Setters for map elements
-		virtual void setAttribute(std::string, std::string);
-		virtual void setStyle(std::string, std::string);
+        virtual void setAttribute(std::string, std::string);
+        virtual void setStyle(std::string, std::string);
 
-		virtual void addElement(Element);
-		virtual Element* getElement(unsigned int);
-		virtual void removeElement(unsigned int);
-		virtual unsigned int nbElement();
+        virtual void addElement(Element);
+        virtual Element* getElement(unsigned int);
+        virtual void removeElement(unsigned int);
+        virtual int nbElement() const;
 
-		/**
-		* Cree le code html correspondant a l'élément et à ses fils
-		*/
-		virtual std::string toString()const;
+        /**
+        * Cree le code html correspondant a l'élément et à ses fils
+        */
+        virtual std::string toString()const;
+        /**
+        * Cree le code css correspondant aux styles de l'élément et aux styles de ses fils
+        */
+        virtual std::string toCss()const;
         /**
         * Sauvegarde en format json l'élément et ses fils
         */
-		virtual std::string toJson();
+        virtual std::string toJson()const;
 };
 
 

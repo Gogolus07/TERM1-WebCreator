@@ -21,6 +21,24 @@ Element::Element(string moduleName, string content) : m_moduleName(moduleName)
 
 Element::~Element() {}
 
+void Element::copieElement(Element &e)
+{
+    m_content=e.getContent();
+    for(map<string,string>::const_iterator i=e.getAttributeBegin();i!=e.getAttributeEnd();i++)
+    {
+        setAttribute(i->first,i->second);
+    }
+    for(map<string,string>::const_iterator i=e.getStyleBegin();i!=e.getStyleEnd();i++)
+    {
+        setStyle(i->first,i->second);
+    }
+    for(unsigned int i=0;i<e.nbElement();i++)
+    {
+        addElement(*(new Element(e.getElement(i)->getModuleName())));
+        getElement(i)->copieElement((*(e.getElement(i))));
+    }
+}
+
 //Getters and Setters
 string Element::getId() const {return m_id;}
 string Element::getElementName() const {return m_elementName;}
@@ -33,6 +51,16 @@ void Element::setId(string id) {this->m_id=id;}
 
 
 //Getters for map elements
+map<string,string>::const_iterator Element::getAttributeBegin()
+{
+    return m_attributes.begin();
+}
+
+map<string,string>::const_iterator Element::getAttributeEnd()
+{
+    return m_attributes.end();
+}
+
 string Element::getAttribute(string attributeName)
 {
     string attribute = m_attributes[attributeName];
@@ -40,6 +68,16 @@ string Element::getAttribute(string attributeName)
         return attribute;
     cout << "This attribute doesn't exist in the attributes map!" <<endl;
     return NULL;
+}
+
+map<string,string>::const_iterator Element::getStyleBegin()
+{
+    return m_styles.begin();
+}
+
+map<string,string>::const_iterator Element::getStyleEnd()
+{
+    return m_styles.end();
 }
 
 string Element::getStyle(string styleName)
@@ -80,7 +118,7 @@ void Element::removeElement(unsigned int i)
     }
 }
 
-unsigned int Element::nbElement()
+int Element::nbElement() const
 {
     return m_childElements.size();
 }
@@ -93,7 +131,12 @@ string Element::toString() const
         res+=m_content;
     }
     else {
-        res+="<"+m_elementName+" id = \""+m_id+"\">";
+        res+="<"+m_elementName+" id=\""+m_id+"\"";
+        for(map<string,string>::const_iterator i=m_attributes.begin();i!=m_attributes.end();i++)
+        {
+            res+=" "+i->first+"=\""+i->second+"\"";
+        }
+        res+=">";
         res+=m_content;
         for(unsigned int i=0;i<m_childElements.size();i++)
         {
@@ -105,13 +148,28 @@ string Element::toString() const
     return res;
 }
 
-string Element::toJson()
+string Element::toCss() const
+{
+    string res="#"+m_id+" {";
+    for(map<string,string>::const_iterator i=m_styles.begin();i!=m_styles.end();i++)
+    {
+        res+="\t"+i->first+";"+i->second+";\n";
+    }
+    res+="}\n\n";
+    for(unsigned int i=0;i<m_childElements.size();i++)
+    {
+        res+=m_childElements[i].toCss();
+    }
+    return res;
+}
+
+string Element::toJson() const
 {
     string res="\t\t\t\t\t{ \"element\" : {\n";
     res+="\t\t\t\t\t\t\"type\" : \""+m_elementName+"\",\n";
     res+="\t\t\t\t\t\t\"id\" : \""+m_id+"\",\n";
     res+="\t\t\t\t\t\t\"attributes\" : [";
-    for(map<string,string>::iterator i=m_attributes.begin();i!=m_attributes.end();i++)
+    for(map<string,string>::const_iterator i=m_attributes.begin();i!=m_attributes.end();i++)
     {
         if(i!=m_attributes.begin())
         {
@@ -121,7 +179,7 @@ string Element::toJson()
     }
     res+="],\n";
     res+="\t\t\t\t\t\t\"style\" : [";
-    for(map<string,string>::iterator i=m_styles.begin();i!=m_styles.end();i++)
+    for(map<string,string>::const_iterator i=m_styles.begin();i!=m_styles.end();i++)
     {
         if(i!=m_styles.begin())
         {

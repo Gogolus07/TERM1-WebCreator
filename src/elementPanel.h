@@ -51,11 +51,12 @@ public:
     /**
      * @fn createModule()
      * @brief Cree la miniature du module a afficher
+     * @deprecated {Remplace par les objets de type ModuleItems}
      * @param QFileInfo img {Image du module (si disponible)}
      * @param QString name {Nom du module a afficher}
      * @return QVBoxLayout*  {Layout contenant l'image du module et son nom}
      */
-    QVBoxLayout* createModule(QFileInfo img, QString name);
+    QVBoxLayout* createModule(QFileInfo img, QString n);
 
     /**
      * @fn createModulesList();

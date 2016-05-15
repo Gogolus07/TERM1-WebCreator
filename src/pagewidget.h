@@ -11,6 +11,7 @@
 #define PAGEWIDGET_H
 
 #include <QGraphicsView>
+#include "metier/include/Element.h"
 
 class CompositeElementWidget;
 class ElementWidget;
@@ -31,6 +32,13 @@ class PageWidget : public QGraphicsView
          *  \param parent : automatiquement initialisé a zero.
          */
         PageWidget(QWidget *parent = nullptr);
+
+        /**
+         * @fn loadElements(Element e)
+         * @brief Charge les elements recuperes a l ouverture d un fichier
+         * @param Element* e {Element recupere dans le code metier a convertir en element graphique}
+         */
+        void loadElements(Element* e);
     protected:
         /**
          *  \brief Methode qui va nous servir a initialiser le drag.
@@ -55,7 +63,6 @@ class PageWidget : public QGraphicsView
 
 
         void dragLeaveEvent(QDragLeaveEvent *event) Q_DECL_OVERRIDE;
-
 
         //void mousePressEvent  (QMouseEvent *event) Q_DECL_OVERRIDE;
         //void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
