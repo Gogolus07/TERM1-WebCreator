@@ -1,0 +1,8 @@
+{
+    "nom":"image",
+    "balise":"img",
+    "description":"image",
+    "categorie" : "Objets de base",
+    "style":[["margin","0"],["font-family","Arial"]],
+    "contenu" : []
+}

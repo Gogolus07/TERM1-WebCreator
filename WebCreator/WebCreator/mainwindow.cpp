@@ -27,6 +27,12 @@
 #include <QFontComboBox>
 #include <QToolButton>
 
+//#include <QWebView>
+#include <QtWebKit/QtWebKit>
+#include <QtWebKitWidgets/QtWebKitWidgets> // With Qt >= 4.8
+#include <QtWebEngineWidgets/QtWebEngineWidgets>
+
+
 //Pour tous nos includes personnel
 #include "mainwindow.h"
 //#include "../dragwidget.h"
@@ -67,10 +73,10 @@ void MainWindow::setupWidgets(std::string mode){
     if(mode == "initialise")
     {
         createToolBox();
-        m_site = new Site("NomDuSite", 15);
-        m_site->addPage();
-        m_pageWeb=m_site->getPage(0);
-        m_pageWeb->setNom("premiere page");
+        //m_site = new Site("NomDuSite", 15);
+        //m_site->addPage();
+        //m_pageWeb=m_site->getPage(0);
+        //m_pageWeb->setNom("premiere page");
         m_scene = new PageScene(*m_pageWeb, m_itemMenu, this);
         //Taille de la page web (devra etre modifiable)
         m_scene->setSceneRect(QRectF(0, 0, 1000, 1000));
@@ -685,7 +691,20 @@ void MainWindow::createAction(){
 }
 
 void MainWindow::compilerLeSite(){
-    qDebug()<<m_pageWeb->getRoot()->getBody()->toString().c_str();
+    //qDebug()<<m_pageWeb->getRoot()->getBody()->toString().c_str();
+    qDebug()<<m_site->getPage(0)->toString().c_str();
+
+    QWebEnginePage page;
+    //connect(&page, SIGNAL(urlChanged(const QUrl&)), SLOT(mySlotName()));
+    page.load(QUrl("http://www.google.fr"));
+
+
+    //page.mainFrame()->load(QUrl("http://www.google.fr"));
+    //page.loadStarted();
+    //QWebView fenetre;
+    //fenetre.load(QUrl("http://www.google.fr"));
+    //fenetre.show();
+    //page.view()->show();
 }
 
 
@@ -812,9 +831,12 @@ void MainWindow::nouveau()
 {
     bool ok = false;
     QString projectName = QInputDialog::getText(this,"Nouveau","Entrez le nom du nouveau projet", QLineEdit::Normal, QString(), &ok);
-    //site = new Site(projectName.toStdString(), 1);
-    //web=site->getPage(0);
-    //pageW = new PageWidget(web);
+
+    /*On initialise un projet*/
+    m_site = new Site(projectName.toStdString(), 1);
+    m_site->addPage();
+    m_pageWeb=m_site->getPage(0);
+    m_pageWeb->setNom("premiere page");
 
     if(ok)
     {
@@ -827,32 +849,37 @@ void MainWindow::nouveau()
 
 void MainWindow::ouvrir()
 {
-    //QString fichier = QFileDialog::getOpenFileName(this);
-    //site->charger(fichier.toStdString());
+    QString fichier = QFileDialog::getOpenFileName(this);
+    m_site->charger(fichier.toStdString());
 }
 
 void MainWindow::enregistrer()
 {
-    /*if(site == nullptr)
+    if(m_site == nullptr)
         QMessageBox::information(this, "Attention", "Vous devez avoir un projet en cours pour sauvegarder!");
     else
     {
         if(saveDir == "")
             enregistrerSous();
         else
-            site->sauvegarde(saveDir.toStdString());
-    }*/
+            m_site->sauvegarde(saveDir.toStdString());
+    }
 }
 
 void MainWindow::enregistrerSous()
 {
-    /*if(site == nullptr)
+    if(m_site == nullptr)
         QMessageBox::information(this, "Attention", "Vous devez avoir un projet en cours pour sauvegarder!");
     else
     {
         saveDir = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "JSON (*.json)");
         enregistrer();
-    }*/
+    }
 }
 
-
+/**********************************************/
+/**********************************************/
+/**********************************************/
+/* Si c'est un bon push tu verras ce message  */
+/**********************************************/
+/**********************************************/
