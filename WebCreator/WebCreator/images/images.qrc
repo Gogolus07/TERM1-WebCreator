@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/">
+        <file>copy.png</file>
+        <file>cut.png</file>
+        <file>new.png</file>
+        <file>open.png</file>
+        <file>paste.png</file>
+        <file>save.png</file>
+        <file>icon_play.png</file>
+        <file>bringtofront.png</file>
+        <file>sendtoback.png</file>
+        <file>delete.png</file>
+        <file>textpointer.png</file>
+        <file>bold.png</file>
+        <file>italic.png</file>
+        <file>underline.png</file>
+        <file>a.png</file>
+        <file>h.png</file>
+        <file>p.png</file>
+        <file>img.png</file>
+        <file>video.png</file>
+        <file>rectangle.png</file>
+        <file>rond.png</file>
+        <file>trait.png</file>
+    </qresource>
+</RCC>

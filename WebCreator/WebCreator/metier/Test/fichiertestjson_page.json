@@ -1,0 +1,38 @@
+{
+	"page" : "accueil",
+	"content" : {
+		"html" : {
+			"body" : [
+				{
+					"content" : [
+						{
+							"element" : {
+								"type" : "p",
+								"id" : "p0",
+								"class" : "paragraph",
+								"attributes" : [],
+								"style" : [],
+								"texte" : "J'ai beau t'aimer, tu paris",
+								"content" : [
+									{"element" : {
+										"type" : "b",
+										"id" : "b0",
+										"class" : "bold",
+										"attributes" : [],
+										"style" : [],
+										"texte" : "quand même.",
+										"content" : []
+									}}
+								]
+							}
+						}
+					]
+				}
+			],
+			"head" : [
+				{"meta" : [{"charset" : "UTF-8"}]},
+				{"title" : "J'ai beau t'aimer, tu paris quand même"}
+			]
+		}
+	}
+}

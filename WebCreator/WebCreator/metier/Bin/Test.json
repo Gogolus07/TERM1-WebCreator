@@ -1,0 +1,32 @@
+{
+	"page" : "Test",
+	"content" : {
+		"html" : {
+			"head" : [
+				{"script" : []},
+				{"links" : []},
+				{"title" : "Le projet"}
+			],
+			"body" : [
+				{ "content" : [
+					{ "element" : {
+						"type" : "p",
+						"id" : "p0",
+						"attributes" : [],
+						"style" : [],
+						"texte" : "Coucou",
+						"content" : []
+					}}
+, 
+					{ "element" : {
+						"type" : "p",
+						"id" : "p1",
+						"attributes" : [],
+						"style" : [],
+						"texte" : "C'est le projet",
+						"content" : []
+					}}
+				]}			]
+		}
+	}
+}
