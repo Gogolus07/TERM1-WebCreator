@@ -27,7 +27,9 @@ HEADERS += \
     src/metier/include/Module.h \
     src/metier/include/PageWeb.h \
     src/metier/include/Site.h \
-    src/items/include/image.h
+    src/items/include/image.h \
+    src/cssPanel.h \
+    src/DOMPanel.h
 
 
 SOURCES += \
@@ -48,7 +50,9 @@ SOURCES += \
     src/metier/src/Module.cpp \
     src/metier/src/PageWeb.cpp \
     src/metier/src/Site.cpp \
-    src/metier/src/jsoncpp.cpp
+    src/metier/src/jsoncpp.cpp \
+    src/cssPanel.cpp \
+    src/DOMPanel.cpp
 
 
 

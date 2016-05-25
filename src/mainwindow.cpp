@@ -12,6 +12,8 @@
 #include <QTreeWidget>
 #include <QDockWidget>
 #include <QListWidget>
+#include "cssPanel.h"
+#include "DOMPanel.h"
 
 //Pour tous nos includes personnel
 #include "mainwindow.h"
@@ -175,9 +177,9 @@ void MainWindow::createAction(){
     m_executerAct ->setStatusTip(tr("Executer le projet et lancer un editeur web"));
     //connect(closeAllAct, SIGNAL(triggered()), mdiArea, SLOT(closeAllSubWindows()));
 
-    m_executerSansDepAct = new QAction(tr("Executer sans deploiement"), this);
-    m_executerSansDepAct ->setStatusTip(tr("Executer le projet sans lancer un editeur web"));
-    //connect(closeAllAct, SIGNAL(triggered()), mdiArea, SLOT(closeAllSubWindows()));
+    m_executerSansDepAct = new QAction(tr("Generer"), this);
+    m_executerSansDepAct ->setStatusTip(tr("Generer le code web"));
+    connect(m_executerSansDepAct, SIGNAL(triggered()), this, SLOT(generer()));
 
     /*---------------------------*/
     /* Bare de menu pour Fenetre */
@@ -226,10 +228,10 @@ void MainWindow::createMenus(){
     m_editionMenu->addAction(m_tousDeselectionnerAct);
 
     m_compilationMenu = menuBar()->addMenu(tr("&Compilation"));
-    m_compilationMenu->addAction(m_refaireJsonAct);
-    m_compilationMenu->addAction(m_relancerProjetAct);
-    m_compilationMenu->addSeparator();
-    m_compilationMenu->addAction(m_executerAct);
+    //m_compilationMenu->addAction(m_refaireJsonAct);
+    //m_compilationMenu->addAction(m_relancerProjetAct);
+    //m_compilationMenu->addSeparator();
+    //m_compilationMenu->addAction(m_executerAct);
     m_compilationMenu->addAction(m_executerSansDepAct);
 
     m_fenetreMenu = menuBar()->addMenu(tr("&Fenêtre"));
@@ -250,51 +252,14 @@ void MainWindow::createStatusBar()
 /* createDockWindows: ================================================= */
 void MainWindow::createDockWindows()
 {
-    QDockWidget *dock = new QDockWidget(tr("CSS"), this);
+    cssPanel = new CssPanel();
+    QDockWidget *dock = cssPanel->getDock();
     dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-    m_customerLists = new QListWidget(dock);
-
-    m_customerLists->addItems(QStringList()
-            << "John Doe, Harmony Enterprises, 12 Lakeside, Ambleton"
-            << "Jane Doe, Memorabilia, 23 Watersedge, Beaton"
-            << "Tammy Shea, Tiblanka, 38 Sea Views, Carlton"
-            << "Tim Sheen, Caraba Gifts, 48 Ocean Way, Deal"
-            << "Sol Harvey, Chicos Coffee, 53 New Springs, Eccleston"
-            << "Sally Hobart, Tiroli Tea, 67 Long River, Fedula");
-    dock->setWidget(m_customerLists);
-
     addDockWidget(Qt::RightDockWidgetArea, dock);
 
-    dock = new QDockWidget(tr("DOM"), this);
-
-    QStringList html;    html    << tr("html")    << tr("");
-    QStringList head;    head    << tr("head")    << tr("");
-    QStringList meta1;   meta1   << tr("meta")    << tr("http-equiv\"Content-Type\" content=\"text/html; charset=utf-8\"");
-    QStringList script1; script1 << tr("script")  << tr("type=\"text/javascript\" src=\"/scripts/extras.js\"");
-    QStringList body;    body    << tr("Body")    << tr("id=\"id_body\"");
-    QStringList header;  header  << tr("header")  << tr("");
-    QStringList footer;  footer  << tr("footer")  << tr("");
-    QStringList section; section << tr("section") << tr("");
-
-    QTreeWidget *t=new QTreeWidget(dock);
-    t->setColumnCount(2);
-
-    QTreeWidgetItem *item_html = new QTreeWidgetItem(html);
-    QTreeWidgetItem *item_head = new QTreeWidgetItem(head);
-    QTreeWidgetItem *item_body = new QTreeWidgetItem(body);
-
-    item_html->addChild(item_head);
-    item_html->addChild(item_body);
-
-    item_head->addChild(new QTreeWidgetItem(meta1));
-    item_head->addChild(new QTreeWidgetItem(script1));
-    item_body->addChild(new QTreeWidgetItem(header));
-    item_body->addChild(new QTreeWidgetItem(section));
-    item_body->addChild(new QTreeWidgetItem(footer));
-
-    t->addTopLevelItem(item_html);
-
-    dock->setWidget(t);
+    domPanel = new DOMPanel();
+    dock = domPanel->getDock();
+    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
     addDockWidget(Qt::RightDockWidgetArea, dock);
 }
 
@@ -320,6 +285,7 @@ void MainWindow::nouveau()
 
         projectName = "Projet: " + projectName;
         setWindowTitle(projectName);
+        cssPanel->setConnections();
     }
 }
 
@@ -352,6 +318,17 @@ void MainWindow::enregistrerSous()
     {
         saveDir = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "JSON (*.json)");
         enregistrer();
+    }
+}
+
+void MainWindow::generer()
+{
+    if(site == nullptr)
+        QMessageBox::information(this, "Attention", "Vous devez avoir un projet en cours pour créer un site!");
+    else
+    {
+        QString outputDir = QFileDialog::getExistingDirectory(this);
+        site->generate(outputDir.toStdString());
     }
 }
 

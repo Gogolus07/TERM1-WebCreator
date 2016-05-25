@@ -14,6 +14,8 @@
 #include "pagewidget.h"
 #include "elementPanel.h"
 #include "metier/include/Site.h"
+#include "cssPanel.h"
+#include "DOMPanel.h"
 
 QT_BEGIN_NAMESPACE
 class QAction;
@@ -147,6 +149,8 @@ class MainWindow : public QMainWindow
         Site *site = nullptr;
         PageWeb *web;
         QString saveDir = "";
+        CssPanel* cssPanel;
+        DOMPanel* domPanel;
 
         //Pour les test en haut a droite
         QListWidget *m_customerLists;
@@ -182,6 +186,12 @@ public slots:
          * @brief [SLOT]Enregistre le projet dans le fichier selectionne
          */
         void enregistrerSous();
+
+        /**
+         * @fn generer();
+         * @brief [SLOT]Genere le code web du projet en cours
+         */
+        void generer();
 
 };
 
