@@ -14,11 +14,7 @@ TARGET = TERM1-WebCreator
 HEADERS += \
     src/mainwindow.h \
     src/elementPanel.h \
-    src/compositeelementwidget.h \
-    src/elementwidget.h \
-    src/pagewidget.h \
     src/moduleitem.h \
-    src/items/include/label.h \
     src/metier/include/Body.h \
     src/metier/include/Element.h \
     src/metier/include/Head.h \
@@ -27,21 +23,17 @@ HEADERS += \
     src/metier/include/Module.h \
     src/metier/include/PageWeb.h \
     src/metier/include/Site.h \
-    src/items/include/image.h \
     src/cssPanel.h \
-    src/DOMPanel.h
+    src/DOMPanel.h \
+    src/pagescene.h \
+    src/textitem.h
 
 
 SOURCES += \
     src/main.cpp \
     src/mainwindow.cpp \
     src/elementPanel.cpp \
-    src/compositeelementwidget.cpp \
-    src/elementwidget.cpp \
-    src/pagewidget.cpp \
     src/moduleitem.cpp \
-    src/items/src/label.cpp \
-    src/items/src/image.cpp \
     src/metier/src/Body.cpp \
     src/metier/src/Element.cpp \
     src/metier/src/Head.cpp \
@@ -52,7 +44,9 @@ SOURCES += \
     src/metier/src/Site.cpp \
     src/metier/src/jsoncpp.cpp \
     src/cssPanel.cpp \
-    src/DOMPanel.cpp
+    src/DOMPanel.cpp \
+    src/pagescene.cpp \
+    src/textitem.cpp
 
 
 

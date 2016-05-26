@@ -10,7 +10,6 @@
 #define LABEL_H
 
 #include <QLabel>
-#include "../../elementwidget.h"
 
 QT_BEGIN_NAMESPACE
 class QStyleOptionGraphicsItem;

@@ -1,4 +1,5 @@
 #include "elementPanel.h"
+#include "pagescene.h"
 #include "moduleitem.h"
 
 #include <iostream>
@@ -10,13 +11,18 @@
 #include <QToolBox>
 #include <QLabel>
 #include <QDir>
+#include <qDebug>
+
+#include <QToolButton>
 
 using namespace std;
+const int InsertTextButton = 10;
 
 
-elementPanel::elementPanel(QWidget *parent) : QWidget(parent)
+elementPanel::elementPanel(PageScene *scene, QWidget *parent) : QWidget(parent)
 {
     container = NULL;
+    m_scene = scene;
     load();
 }
 
@@ -90,10 +96,6 @@ QList<QFileInfo> elementPanel::listFiles(vector<QFileInfo> &dirVect) //cree la l
 QVBoxLayout* elementPanel::createModule(QFileInfo img, QString name) //renvoie la miniature du module
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
-    QString temp = name.left(10);
-    cout<<"TEST text: "+temp.toStdString()<<endl;
-    QLabel *moduleName = new QLabel(temp);
-    moduleName->setMaximumWidth(175);
 
     if(img.exists())
     {
@@ -104,15 +106,36 @@ QVBoxLayout* elementPanel::createModule(QFileInfo img, QString name) //renvoie l
         layout->addWidget(label);
     }
 
-    layout->addWidget(new QLabel(moduleName));
+    layout->addWidget(new QLabel(name));
+
     return layout;
+}
+
+void elementPanel::buttonGroupClicked(int id)
+{
+    //qDebug()<<"Je suis dans buttonGroupClicked="<<id;
+    QList<QAbstractButton *> buttons = buttonGroup->buttons();
+    foreach (QAbstractButton *button, buttons) {
+        if (buttonGroup->button(id) != button)
+            button->setChecked(false);
+    }
+    if (id == InsertTextButton) {
+        m_scene->setMode(PageScene::InsertText);
+    } else {
+        //scene->setItemType(DiagramItem::DiagramType(id));
+        m_scene->setMode(PageScene::InsertItem);
+    }
 }
 
 void elementPanel::createModulesList() //pour le dossier donne, cree un onglet et y ajoute les modules trouves
 {
+    int x=0;
+    int y=0;
+
     for(size_t i = 0; i<fileList.size(); i++)
     {
-        QVBoxLayout *layout = new QVBoxLayout(this);
+        //QVBoxLayout *layout = new QVBoxLayout(this);
+        QGridLayout *layout = new QGridLayout;
 
         for(size_t j = 1; j<fileList[i].size(); j++)
         {
@@ -128,24 +151,86 @@ void elementPanel::createModulesList() //pour le dossier donne, cree un onglet e
                     j++;
                     img = fileList[i][j];
                 }
-                moduleItem *b = new moduleItem(name.left(30));
-                b->setStyleSheet("background-color: white;");
-                layout->addWidget(b);
+
+                /*-----------*/
+                buttonGroup = new QButtonGroup(this);
+                buttonGroup->setExclusive(false);
+                connect(buttonGroup, SIGNAL(buttonClicked(int)), this, SLOT(buttonGroupClicked(int)));
+
+                QToolButton *textButton = new QToolButton;
+                textButton->setCheckable(true);
+                if(name=="p"){
+                    buttonGroup->addButton(textButton, InsertTextButton);
+                    textButton->setIcon(QIcon(QPixmap(":/p.png")));
+                }else if(name=="a"){
+                    buttonGroup->addButton(textButton, InsertTextButton+1);
+                    textButton->setIcon(QIcon(QPixmap(":/a.png")));
+                }else if(name=="h"){
+                    buttonGroup->addButton(textButton, InsertTextButton+2);
+                    textButton->setIcon(QIcon(QPixmap(":/h.png")));
+                }else if(name=="img"){
+                    buttonGroup->addButton(textButton, InsertTextButton+3);
+                    textButton->setIcon(QIcon(QPixmap(":/img.png")));
+                }else if(name=="video"){
+                    buttonGroup->addButton(textButton, InsertTextButton+4);
+                    textButton->setIcon(QIcon(QPixmap(":/video.png")));
+                }else if(name=="musique"){
+                    buttonGroup->addButton(textButton, InsertTextButton+5);
+                    textButton->setIcon(QIcon(QPixmap(":/musique.png")));
+                }else if(name=="rond"){
+                    buttonGroup->addButton(textButton, InsertTextButton+6);
+                    textButton->setIcon(QIcon(QPixmap(":/rond.png")));
+                }else if(name=="rectangle"){
+                    buttonGroup->addButton(textButton, InsertTextButton+7);
+                    textButton->setIcon(QIcon(QPixmap(":/rectangle.png")));
+                }else if(name=="trait"){
+                    buttonGroup->addButton(textButton, InsertTextButton+8);
+                    textButton->setIcon(QIcon(QPixmap(":/trait.png")));
+                }else{
+                    buttonGroup->addButton(textButton, InsertTextButton+9);
+                    textButton->setIcon(QIcon(QPixmap(":/custom.png")));
+                }
+                textButton->setIconSize(QSize(50, 50));
+                QGridLayout *textLayout = new QGridLayout;
+                textLayout->addWidget(textButton, 0, 0, Qt::AlignHCenter);
+                textLayout->addWidget(new QLabel(tr(name.toStdString().c_str())), 1, 0, Qt::AlignCenter);
+                QWidget *textWidget = new QWidget;
+                textWidget->setLayout(textLayout);
+                layout->addWidget(textWidget, x, y);
+
+                layout->setRowStretch(3, 10);
+                layout->setColumnStretch(2, 10);
+
+                y=(y==1)?0:1;
+                x+=(y==1)?0:1;
+
+                //moduleItem *b = new moduleItem(name);
+                //b->setStyleSheet("background-color: white;");
+                //layout->addWidget(b);
                 //layout->addLayout(createModule(img, name));
             }
         }
-        layout->addStretch();//pour enlever les espaces
+        //layout->addStretch();//pour enlever les espaces
+        QWidget *itemWidget = new QWidget;
+        itemWidget->setLayout(layout);
+        x=0; y=0;
 
-        QWidget *widget = new QWidget();
-        widget->setLayout(layout);
+        //QWidget *widget = new QWidget();
+        //widget->setLayout(layout);
 
         if(i == 0)
-            container->addItem(widget, QString("Modules"));
+            container->addItem(itemWidget, QString("Modules"));
         else
-            container->addItem(widget, fileList[i][0].baseName());
+            container->addItem(itemWidget, fileList[i][0].baseName());
     }
 }
 
+
+void elementPanel::textInserted(QButtonGroup *pointerTypeGroup)
+{
+    buttonGroup->button(InsertTextButton)->setChecked(false);
+    m_scene->setMode(PageScene::Mode(pointerTypeGroup->checkedId()));
+}
 
 
 //-------Accessoires
@@ -157,7 +242,8 @@ void elementPanel::load()
 
     container = new QToolBox(this, Qt::Widget);
     fileList = vector<vector<QFileInfo> >();
-    container->setFixedWidth(200);
+
+    container->setFixedWidth(202);
 
     createFileList();
     createModulesList();

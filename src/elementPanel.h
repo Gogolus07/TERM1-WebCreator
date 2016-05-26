@@ -1,12 +1,14 @@
 #ifndef ELEMENTPANEL_H
 #define ELEMENTPANEL_H
 
+class PageScene;
 class QHBoxLayout;
 class QVBoxLayout;
 class QToolBox;
 class QDir;
+class QGraphicsTextItem;
 
-
+#include <QButtonGroup>
 #include <QFileInfo>
 #include <QWidget>
 
@@ -25,7 +27,7 @@ public:
      * @brief Constructeur
      * @param QWidget *parent {parent Qt, n'a generalement pas à être renseigne}
      */
-    explicit elementPanel(QWidget *parent = 0);
+    explicit elementPanel(PageScene *scene, QWidget *parent = 0);
 
     /**
      * @fn createFileList()
@@ -51,12 +53,11 @@ public:
     /**
      * @fn createModule()
      * @brief Cree la miniature du module a afficher
-     * @deprecated {Remplace par les objets de type ModuleItems}
      * @param QFileInfo img {Image du module (si disponible)}
      * @param QString name {Nom du module a afficher}
      * @return QVBoxLayout*  {Layout contenant l'image du module et son nom}
      */
-    QVBoxLayout* createModule(QFileInfo img, QString n);
+    QVBoxLayout* createModule(QFileInfo img, QString name);
 
     /**
      * @fn createModulesList();
@@ -91,9 +92,14 @@ public:
      */
     void printFileList();
 
+
+    void textInserted(QButtonGroup *pointerTypeGroup);
+
 private:
     QToolBox *container; /*!< Conteneur Qt des modules. Objet à afficher*/
     std::vector<std::vector<QFileInfo> > fileList; /*!< Liste des sous-dossiers et fichiers du dossier Modules. Chaque sous vecteur correspond a un sous-dossier (contenu en [0]) suivi des fichiers. Le dossier Modules correspond a fileList[0][0]*/
+    QButtonGroup *buttonGroup;
+    PageScene *m_scene;
 
 signals:
 
@@ -104,6 +110,9 @@ public slots:
      * @brief [SLOT] Fait appel a load()
      */
     void loadModules();
+
+    void buttonGroupClicked(int id);
+
 };
 
 #endif // ELEMENTPANEL_H
