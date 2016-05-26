@@ -132,7 +132,7 @@ void MainWindow::setupWidgets(std::string mode){
     }
 
 
-    //setCentralWidget(frame);
+    setCentralWidget(frame);
 }
 
 
@@ -782,14 +782,16 @@ void MainWindow::nouveau()
     bool ok = false;
     QString projectName = QInputDialog::getText(this,"Nouveau","Entrez le nom du nouveau projet", QLineEdit::Normal, QString(), &ok);
 
-    /*On initialise un projet*/
-    m_site = new Site(projectName.toStdString(), 1);
-    m_site->addPage();
-    m_pageWeb=m_site->getPage(0);
-    m_pageWeb->setNom("premiere page");
+    while(projectName.isEmpty() && ok)
+        projectName = QInputDialog::getText(this,"Nouveau","Entrez le nom du nouveau projet (ne dois pas être vide)", QLineEdit::Normal, QString(), &ok);
 
     if(ok)
     {
+        m_site = new Site(projectName.toStdString(), 1);
+        m_site->addPage();
+        m_pageWeb=m_site->getPage(0);
+        m_pageWeb->setNom("premiere page");
+
         setupWidgets("initialise");
 
         projectName = "Projet: " + projectName;

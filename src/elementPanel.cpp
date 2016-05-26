@@ -225,7 +225,6 @@ void elementPanel::createModulesList() //pour le dossier donne, cree un onglet e
     }
 }
 
-
 void elementPanel::textInserted(QButtonGroup *pointerTypeGroup)
 {
     buttonGroup->button(InsertTextButton)->setChecked(false);
